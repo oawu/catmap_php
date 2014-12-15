@@ -4,5 +4,8 @@
  */
 
 $(function () {
-
+  // ga ('send', 'event', 'test', 'send', document.URL);
+  $('button').click (function () {
+    ga ('send', 'event', 'test', 'send', document.URL);
+  });
 });
