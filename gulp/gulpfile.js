@@ -1,11 +1,10 @@
 var gulp = require ('gulp'),
-    notify = require('gulp-notify'),
     livereload = require('gulp-livereload');
 
 gulp.task ('default', function () {
   livereload.listen ();
 
-  ['./root/*.html', './root/css/**/*.css', './root/res/**/*.js', './root/js/**/*.js'].forEach (function (t) {
+  ['./root/index.html', './root/style.css', './root/main.js'].forEach (function (t) {
     gulp.watch (t).on ('change', function () {
       gulp.run ('reload');
     });
