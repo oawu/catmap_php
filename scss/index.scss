@@ -8,7 +8,19 @@
 html {
   body {
     #container {
+      border: 1px solid red;
+    }
 
+    .mCSB_scrollTools{
+      .mCSB_draggerContainer{
+        .mCSB_dragger{
+          text-align: center;
+          .mCSB_dragger_bar {
+            margin: auto 4px;
+            width: 8px;
+          }
+        }
+      }
     }
   }
 }
