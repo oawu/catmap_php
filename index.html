@@ -5,7 +5,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
 
-    <title>Rule</title>
+    <title></title>
 
     <link href="css/frame.css" rel="stylesheet" type="text/css" />
 
@@ -15,7 +15,181 @@
   </head>
   <body lang="zh-tw">
     
-    <div id='container'></div>
+    <div id='container'>
+
+      <div class='b'>
+        <h1>Web Server</h1>
+        <table class='table-list'>
+          <thead>
+            <tr>
+              <th>名稱</th>
+              <th>數量</th>
+              <th>用途</th>
+              <th>規格</th>
+              <th>放置地點</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AWS EC2</td>
+              <td>1</td>
+              <td>WEB Server</td>
+              <td>c4.xlarge</td>
+              <td>Asia Pacific(Tokyo)</td>
+            </tr>
+            <tr>
+              <td>AWS EC2</td>
+              <td>1</td>
+              <td>API Server</td>
+              <td>c4.xlarge</td>
+              <td>Asia Pacific(Tokyo)</td>
+            </tr>
+            <tr>
+              <td>AWS EC2</td>
+              <td>1</td>
+              <td>Delay Job Server</td>
+              <td>c4.xlarge</td>
+              <td>Asia Pacific(Tokyo)</td>
+            </tr>
+            <tr>
+              <td>AWS RDS</td>
+              <td>1</td>
+              <td>RDS Server</td>
+              <td>c4.xlarge</td>
+              <td>Asia Pacific(Tokyo)</td>
+            </tr>
+            <tr>
+              <td>AWS RDS</td>
+              <td>1</td>
+              <td>Database Server</td>
+              <td>db.m3.xlarge</td>
+              <td>Asia Pacific(Tokyo)</td>
+            </tr>
+            <tr>
+              <td>AWS S3</td>
+              <td>1</td>
+              <td>Simple Storage Server</td>
+              <td>First 1 TB / month</td>
+              <td>Asia Pacific(Tokyo)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class='b'>
+        <h1>後端 環境</h1>
+        <table class='table-list'>
+          <thead>
+            <tr>
+              <th>名稱</th>
+              <th>數量</th>
+              <th>用途</th>
+              <th>規格</th>
+              <th>放置地點</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Linux</td>
+              <td></td>
+              <td>伺服器主機作業系統</td>
+              <td>ubuntu 12.04</td>
+              <td>AWS EC2</td>
+            </tr>
+            <tr>
+              <td>Apache</td>
+              <td></td>
+              <td>網站伺服器軟體</td>
+              <td>version 2.0</td>
+              <td>AWS EC2</td>
+            </tr>
+            <tr>
+              <td>MySQL</td>
+              <td></td>
+              <td>資料庫系統</td>
+              <td>version 5.5+</td>
+              <td>AWS RDS</td>
+            </tr>
+            <tr>
+              <td>php</td>
+              <td></td>
+              <td>後端處理語言</td>
+              <td>version 5.4+</td>
+              <td>AWS RDS</td>
+            </tr>
+            <tr>
+              <td>Redis</td>
+              <td></td>
+              <td>No SQL資料庫系統</td>
+              <td>version 3.1+</td>
+              <td>AWS EC2</td>
+            </tr>
+            <tr>
+              <td>Imagick</td>
+              <td></td>
+              <td>圖片處理系統</td>
+              <td>version 6.8.9+</td>
+              <td>Apache 2.0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class='b'>
+        <h1>程式目錄結構規則</h1>
+        <ol>
+          <li>全小寫，以底線串接。</li>
+          <li>根目錄 ~/www/</li>
+          <li>存放上傳檔案至於 S3 server。</li>
+          <li>檔案路徑依照 db_table_name/db_column_name/id/ </li>
+          <li>檔案名稱以亂數產稱唯一值。</li>
+          <li>後端語言使用 php，framework 使用 CodeIgniter。</li>
+        </ol>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h1>後端 php  框架</h1>
+        <ol>
+          <li>檔案路徑會在 ~/www/ks_ticket/。</li>
+          <li>主要框架以 CodeIgniter 為主。</li>
+          <li>使用版本 2.1.4</li>
+          <li>使用 sparks 擴充套件。</li>
+          <li>Model 使用 php-activerecord、amazon-s3 加強開發效率。</li>
+          <li>Controller 位置於 application/controllers/。</li>
+          <li>Model 位置於 application/models/。</li>
+          <li>View 位置於 application/views/。</li>
+          <li>搭配使用 cell library 增強效能。</li>
+          <li>靜態頁面接至於 assets/ 下，以減少 request 次數(上 production framework 會自動調整)。</li>
+        </ol>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h1>資料庫設計規格</h1>
+        <ol>
+          <li>資料庫皆以 utf-8 unicode 編碼方式。</li>
+          <li>資料庫名稱：ks_ticket。</li>
+          <li>資料表皆以複數命名。</li>
+          <li>資料表皆需有 id 流水編號當作唯一主鍵。</li>
+          <li>資料表名稱皆小寫，單字以底線區隔。</li>
+        </ol>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <h1>Redis 架構</h1>
+        <ol>
+          <li>Production 狀態下， cell 開啓功能會將 cache 存于 redis。</li>
+          <li>Model cache 也可以開啟並且存于 redis。</li>
+          <li>規則由 root key 先以分類區別，其內部結構參考 library 定義。</li>
+        </ol>
+      </div>
+
+    </div>
 
   </body>
 </html>

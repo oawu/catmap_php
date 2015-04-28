@@ -6,18 +6,11 @@
 $(function () {
   var now = document.URL.replace (/^.*[\\\/]/, '');
   var footer = [
-    'Rule © 2015',
+    'OA-Test © 2015',
     "如有相關問題歡迎<a href=''>來信</a>或至<a href='' target='_blank'>作者臉書</a>留言。"
   ];
   var mainMenu = [
-    {name: '空格', file: 'space.html'},
-    {name: '字串', file: 'string.html'},
-    {name: '括號', file: 'symbol.html'},
-    {name: '換行縮排', file: 'tab.html'},
-    {name: '命名', file: 'naming.html'},
-    {name: '註解', file: 'comment.html'},
-    {name: '關鍵字', file: 'keyword.html'},
-    {name: '其他', file: 'other.html'}
+    {name: '首頁', file: 'index.html'},
   ];
 
   var $loading = $('<div />').attr ('id', 'loading').append ($('<div />')).appendTo ($('body').append ($('<div />').attr ('id', 'footer').append (footer.map (function (t) {
