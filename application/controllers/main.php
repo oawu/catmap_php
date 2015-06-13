@@ -13,7 +13,7 @@ class Main extends Site_controller {
 
   public function index () {
     $this->output_json (array (
-      array('status' => true)
+      'status' => true
       ));
   }
 }
