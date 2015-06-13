@@ -12,6 +12,8 @@ class Main extends Site_controller {
   }
 
   public function index () {
-    echo "123";
+    $this->output_json (array (
+      'status' => true
+      ));
   }
 }
