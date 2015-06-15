@@ -5,6 +5,18 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
+if (!function_exists ('password')) {
+  function password ($password) {
+    return md5 ($password);
+  }
+}
+
+if (!function_exists ('token')) {
+  function token ($token) {
+    return md5 ($token);
+  }
+}
+
 if (!function_exists ('column_array')) {
   function column_array ($objects, $key) {
     return array_map (function ($object) use ($key) {

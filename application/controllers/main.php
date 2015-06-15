@@ -12,13 +12,6 @@ class Main extends Site_controller {
   }
 
   public function index () {
-    $account = $this->input_post ('account');
-    $password = $this->input_post ('password');
-
-    $this->output_json (array (
-      'status' => false,
-      'account' => $account,
-      'password' => $password,
-      ));
+    $this->load_view ();
   }
 }

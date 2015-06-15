@@ -3,9 +3,5 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-@import "_oa";
-
-#container {
-  margin: 0 auto;
-  width: $mainWidth;
-}
+$(function () {
+});
