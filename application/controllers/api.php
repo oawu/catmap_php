@@ -10,10 +10,33 @@ class Api extends Site_controller {
   public function __construct () {
     parent::__construct ();
   }
+  public function add_event () {
 
+    $title = trim ($this->input_post ('title'));
+
+    if (!$title)
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    if (!verifyCreateOrm ($event = Event::create (array (
+        'title' => $title
+      ))))
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    return $this->output_json (array (
+      'status' => true,
+      'event' => array (
+            'id' => $event->id,
+            'title' => $event->title
+      )
+    ));
+  }
   public function update_event () {
-    $id = $this->input_get ('id');
-    $title = $this->input_get ('title');
+    $id = $this->input_post ('id');
+    $title = trim ($this->input_post ('title'));
 
     if (!$event = Event::find_by_id ($id))
       return $this->output_json (array (
