@@ -22,7 +22,7 @@ class Api extends Site_controller {
     $next_id = isset ($events[0]) ? $events[0]->id : 0;
 
     return $this->output_json (array (
-      'status' => false,
+      'status' => true,
       'events' => array_map (function ($event) {
         return array (
             'id' => $event->id,
