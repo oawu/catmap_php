@@ -11,6 +11,19 @@ class Api extends Site_controller {
     parent::__construct ();
   }
 
+  public function event () {
+    $id = $this->input_get ('id');
+
+    $event = Event::find_by_id ($id);
+
+    return $this->output_json (array (
+      'status' => $event ? true : false,
+      'event' => array (
+            'id' => $event->id,
+            'title' => $event->title
+      )
+    ));
+  }
   public function events () {
     $next_id = $this->input_get ('next_id');
 
