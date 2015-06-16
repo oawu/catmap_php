@@ -10,6 +10,23 @@ class Api extends Site_controller {
   public function __construct () {
     parent::__construct ();
   }
+  public function delete_event () {
+    $id = $this->input_post ('id');
+
+    if (!$event = Event::find_by_id ($id))
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    if (!$event->delete ())
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    return $this->output_json (array (
+      'status' => true
+    ));
+  }
   public function add_event () {
 
     $title = trim ($this->input_post ('title'));
