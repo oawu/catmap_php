@@ -14,7 +14,7 @@ class Api extends Site_controller {
   public function events () {
     $next_id = $this->input_get ('next_id');
 
-    $limit = 10;
+    $limit = 0;
 
     $conditions = $next_id ? array ('id > ?', $next_id) : array ();
     $events = Event::find ('all', array ('order' => 'id DESC', 'limit' => $limit, 'conditions' => $conditions));
