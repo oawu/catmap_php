@@ -11,6 +11,25 @@ class Api extends Site_controller {
     parent::__construct ();
   }
 
+  public function update_event () {
+    $id = $this->input_get ('id');
+    $title = $this->input_get ('title');
+
+    if (!$event = Event::find_by_id ($id))
+      return $this->output_json (array (
+        'status' => false
+      ));
+    
+    $event->title = $title;
+    if (!$event->save ())
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    return $this->output_json (array (
+      'status' => true
+    ));
+  }
   public function event () {
     $id = $this->input_get ('id');
 
