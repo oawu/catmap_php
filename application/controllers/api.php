@@ -27,7 +27,11 @@ class Api extends Site_controller {
       ));
 
     return $this->output_json (array (
-      'status' => true
+      'status' => true,
+      'event' => array (
+            'id' => $event->id,
+            'title' => $event->title
+      )
     ));
   }
   public function event () {
