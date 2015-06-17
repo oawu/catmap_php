@@ -14,7 +14,7 @@
       <tr>
         <th>圖片</th>
         <td>
-          <?php echo img ($picture->name->url ());?>
+          <?php echo img ($picture->name->url ('800w'));?>
         </td>
       </tr>
       <tr>
