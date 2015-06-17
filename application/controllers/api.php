@@ -14,7 +14,7 @@ class Api extends Site_controller {
     $title = trim ($this->input_post ('title'));
     $name = $this->input_post ('name', true);
 
-    // if (!($title && $name))
+    if (!($title && $name))
       return $this->output_json (array (
         'status' => false,
         'message' => '1',
