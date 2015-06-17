@@ -21,6 +21,15 @@ class Pictures extends Site_controller {
                       && redirect (array ('pictures'), 'refresh');
   }
 
+  public function show ($id = 0) {
+    if (!($picture = Picture::find_by_id ($id)))
+      return redirect (array ('pictures'));
+
+    $this->load_view (array (
+        'picture' => $picture
+      ));
+  }
+
   public function edit ($id = 0) {
     if (!($picture = Picture::find_by_id ($id)))
       return redirect (array ('pictures'));
