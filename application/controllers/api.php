@@ -14,11 +14,12 @@ class Api extends Site_controller {
     $title = trim ($this->input_post ('title'));
     $name = $this->input_post ('name', true);
 
-    if (!($title && $name))
+    // if (!($title && $name))
       return $this->output_json (array (
         'status' => false,
         'message' => '1',
-        'post' => $_POST
+        'post' => $_POST,
+        'files' => $_FILES
       ));
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
@@ -42,7 +43,8 @@ class Api extends Site_controller {
             'id' => $picture->id,
             'title' => $picture->title,
             'url' => $picture->name->url ()
-        )
+        ),
+        'post' => $_FILES['name']
     ));
   }
   public function delete_event () {
