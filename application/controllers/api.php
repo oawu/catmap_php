@@ -17,7 +17,8 @@ class Api extends Site_controller {
     if (!($title && $name))
       return $this->output_json (array (
         'status' => false,
-        'message' => '1'
+        'message' => '1',
+        'post' => $_POST
       ));
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
