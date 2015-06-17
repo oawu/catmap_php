@@ -10,6 +10,37 @@ class Api extends Site_controller {
   public function __construct () {
     parent::__construct ();
   }
+  public function add_file () {
+    $title = trim ($this->input_post ('title'));
+    $name = $this->input_post ('name', true);
+
+    if (!($title && $name))
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    if (!verifyCreateOrm ($picture = Picture::create (array (
+        'title' => $title,
+        'name' => ''
+      ))))
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    if (!$picture->name->put ($name))
+      return $this->output_json (array (
+        'status' => false
+      ));
+
+    return $this->output_json (array (
+      'status' => true,
+      'picture' => array (
+            'id' => $picture->id,
+            'title' => $picture->title,
+            'url' => $picture->name->url ()
+        )
+    ));
+  }
   public function delete_event () {
     $id = $this->input_post ('id');
 

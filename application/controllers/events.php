@@ -18,7 +18,7 @@ class Events extends Site_controller {
     $message = $event->delete () ? '刪除成功！' : '刪除失敗！';
 
     return identity ()->set_session ('_flash_message', $message, true)
-                    && redirect (array ('events'), 'refresh');
+                      && redirect (array ('events'), 'refresh');
   }
 
   public function edit ($id = 0) {
@@ -53,11 +53,11 @@ class Events extends Site_controller {
 
     if (!$event->save ())
       return identity ()->set_session ('_flash_message', '修改失敗！', true)
-                  ->set_session ('title', $title, true)
-                  && redirect (array ('events', 'edit', $event->id), 'refresh');
+                        ->set_session ('title', $title, true)
+                        && redirect (array ('events', 'edit', $event->id), 'refresh');
 
     return identity ()->set_session ('_flash_message', '修改成功！', true)
-                    && redirect (array ('events'), 'refresh');
+                      && redirect (array ('events'), 'refresh');
   }
 
   public function add () {
@@ -87,11 +87,11 @@ class Events extends Site_controller {
 
     if (!verifyCreateOrm ($event = Event::create ($params)))
         return identity ()->set_session ('_flash_message', '新增失敗！', true)
-                    ->set_session ('title', $title, true)
-                    && redirect (array ('events', 'add'), 'refresh');
+                          ->set_session ('title', $title, true)
+                          && redirect (array ('events', 'add'), 'refresh');
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
-                    && redirect (array ('events'), 'refresh');
+                      && redirect (array ('events'), 'refresh');
   }
 
   public function index ($offset = 0) {

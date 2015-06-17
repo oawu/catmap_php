@@ -66,10 +66,10 @@ class Users extends Site_controller {
                         ->set_session ('account', $account, true)
                         ->set_session ('password', $password, true)
                         ->set_session ('name', $name, true)
-                  && redirect (array ('users', 'edit', $user->id), 'refresh');
+                        && redirect (array ('users', 'edit', $user->id), 'refresh');
 
     return identity ()->set_session ('_flash_message', '修改成功！', true)
-                    && redirect (array ('users'), 'refresh');
+                      && redirect (array ('users'), 'refresh');
   }
 
   public function add () {
@@ -112,10 +112,10 @@ class Users extends Site_controller {
                         ->set_session ('account', $account, true)
                         ->set_session ('password', $password, true)
                         ->set_session ('name', $name, true)
-                    && redirect (array ('users', 'add'), 'refresh');
+                        && redirect (array ('users', 'add'), 'refresh');
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
-                    && redirect (array ('users'), 'refresh');
+                      && redirect (array ('users'), 'refresh');
   }
 
   public function index ($offset = 0) {
