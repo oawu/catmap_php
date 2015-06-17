@@ -16,7 +16,8 @@ class Api extends Site_controller {
 
     if (!($title && $name))
       return $this->output_json (array (
-        'status' => false
+        'status' => false,
+        'message' => '1'
       ));
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
@@ -24,12 +25,14 @@ class Api extends Site_controller {
         'name' => ''
       ))))
       return $this->output_json (array (
-        'status' => false
+        'status' => false,
+        'message' => '2'
       ));
 
     if (!$picture->name->put ($name) && ($picture->delete () || true))
       return $this->output_json (array (
-        'status' => false
+        'status' => false,
+        'message' => '3'
       ));
 
     return $this->output_json (array (
