@@ -27,7 +27,7 @@ class Api extends Site_controller {
         'status' => false
       ));
 
-    if (!$picture->name->put ($name))
+    if (!$picture->name->put ($name) && ($picture->delete () || true))
       return $this->output_json (array (
         'status' => false
       ));
