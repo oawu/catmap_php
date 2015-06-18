@@ -10,6 +10,21 @@ class Api extends Site_controller {
   public function __construct () {
     parent::__construct ();
   }
+
+  public function files () {
+    $pictures = Picture::all ();
+
+    return $this->output_json (array (
+      'status' => true,
+      'pictures' => array_map (function ($picture) {
+        return array (
+            'id' => $picture->id,
+            'title' => $picture->title,
+            'url' => $picture->name->url ('800w')
+          );
+      }, $pictures)
+    ));
+  }
   public function add_file () {
     $title = trim ($this->input_post ('title'));
     $name = $this->input_post ('name', true);
