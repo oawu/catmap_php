@@ -11,7 +11,7 @@ class Api extends Site_controller {
     parent::__construct ();
   }
 
-  public function files () {
+  public function pictures () {
     $pictures = Picture::all ();
 
     return $this->output_json (array (
@@ -26,7 +26,7 @@ class Api extends Site_controller {
       }, $pictures)
     ));
   }
-  public function add_file () {
+  public function add_picture () {
     $title = trim ($this->input_post ('title'));
     $name = $this->input_post ('name', true);
 
