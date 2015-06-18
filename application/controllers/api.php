@@ -20,7 +20,8 @@ class Api extends Site_controller {
         return array (
             'id' => $picture->id,
             'title' => $picture->title,
-            'url' => $picture->name->url ('800w')
+            'url' => $picture->name->url ('800w'),
+            'gradient' => $picture->gradient
           );
       }, $pictures)
     ));
@@ -32,14 +33,13 @@ class Api extends Site_controller {
     if (!($title && $name))
       return $this->output_json (array (
         'status' => false,
-        'message' => '1',
-        'post' => $_POST,
-        'files' => $_FILES
+        'message' => '1'
       ));
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
         'title' => $title,
-        'name' => ''
+        'name' => '',
+        'gradient' => 1
       ))))
       return $this->output_json (array (
         'status' => false,
@@ -52,14 +52,16 @@ class Api extends Site_controller {
         'message' => '3'
       ));
 
+    $picture->update_gradient ();
+
     return $this->output_json (array (
       'status' => true,
       'picture' => array (
             'id' => $picture->id,
             'title' => $picture->title,
-            'url' => $picture->name->url ()
-        ),
-        'post' => $_FILES['name']
+            'url' => $picture->name->url (),
+            'gradient' => $picture->gradient
+        )
     ));
   }
   public function delete_event () {

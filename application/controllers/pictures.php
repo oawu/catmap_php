@@ -59,6 +59,15 @@ class Pictures extends Site_controller {
                         ->set_session ('title', $title, true)
                         && redirect (array ('pictures', 'edit', $picture->id), 'refresh');
 
+    if ($name) {
+      if (!($picture->name->put ($name)))
+        return identity ()->set_session ('_flash_message', '修改失敗！', true)
+                          ->set_session ('title', $title, true)
+                          && redirect (array ('pictures', 'edit', $picture->id), 'refresh');
+      
+      $picture->update_gradient ();
+    }
+
     $picture->title = $title;
 
     if (!$picture->save ())
@@ -66,10 +75,7 @@ class Pictures extends Site_controller {
                         ->set_session ('title', $title, true)
                         && redirect (array ('pictures', 'edit', $picture->id), 'refresh');
 
-    if ($name && !($picture->name->put ($name)))
-      return identity ()->set_session ('_flash_message', '修改失敗！', true)
-                        ->set_session ('title', $title, true)
-                        && redirect (array ('pictures', 'edit', $picture->id), 'refresh');
+
 
     return identity ()->set_session ('_flash_message', '修改成功！', true)
                       && redirect (array ('pictures'), 'refresh');
@@ -99,7 +105,8 @@ class Pictures extends Site_controller {
 
     $params = array (
         'title' => $title,
-        'name' => ''
+        'name' => '',
+        'gradient' => '1'
       );
 
     if (!verifyCreateOrm ($picture = Picture::create ($params)))
@@ -111,6 +118,8 @@ class Pictures extends Site_controller {
       return identity ()->set_session ('_flash_message', '新增失敗！', true)
                         ->set_session ('title', $title, true)
                         && redirect (array ('pictures', 'add'), 'refresh');
+
+    $picture->update_gradient ();
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
                       && redirect (array ('pictures'), 'refresh');

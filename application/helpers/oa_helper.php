@@ -6,6 +6,12 @@
  */
 
 if (!function_exists ('password')) {
+  function gradient ($gradient) {
+    return round ($gradient, 2);
+  }
+}
+
+if (!function_exists ('password')) {
   function password ($password) {
     return md5 ($password);
   }

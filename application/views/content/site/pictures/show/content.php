@@ -12,6 +12,12 @@
         </td>
       </tr>
       <tr>
+        <th>斜率(h/w)</th>
+        <td>
+          <?php echo $picture->gradient;?>
+        </td>
+      </tr>
+      <tr>
         <th>圖片</th>
         <td>
           <?php echo img ($picture->name->url ('800w'));?>

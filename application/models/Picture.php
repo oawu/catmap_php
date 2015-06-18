@@ -24,4 +24,12 @@ class Picture extends OaModel {
     OrmImageUploader::bind ('name', 'PictureNameImageUploader');
 
   }
+
+  public function update_gradient () {
+    $image_utility = ImageUtility::create (FCPATH . implode('/', $this->name->path ()));
+    if (ImageUtility::verifyDimension ($dimension = $image_utility->getDimension ())) {
+      $this->gradient = gradient ($dimension['height'] / $dimension['width']);
+      $this->save ();      
+    }
+  }
 }

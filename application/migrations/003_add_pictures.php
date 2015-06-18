@@ -12,6 +12,7 @@ class Migration_Add_pictures extends CI_Migration {
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
+        `gradient` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '斜率，height/width',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '註冊時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         PRIMARY KEY (`id`)
