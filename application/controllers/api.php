@@ -10,6 +10,42 @@ class Api extends Site_controller {
   public function __construct () {
     parent::__construct ();
   }
+  public function demo_pictures () {
+    $this->load->library ('CreateDemo');
+
+    foreach (CreateDemo::pics (1, 30) as $pic) {
+      if (verifyCreateOrm ($picture = Picture::create (array (
+                'title' => $pic['title'],
+                'name' => $pic['url'],
+                'gradient' => '1'
+              )))) {
+        $picture->name->put_url ($pic['url']);
+        $picture->update_gradient (); 
+      }
+    }
+  }
+  public function next_pictures () {
+    $next_id = $this->input_get ('next_id');
+    $limit = ($limit = $this->input_get ('limit')) ? $limit : 5;
+
+    $conditions = $next_id ? array ('id <= ?', $next_id) : array ();
+    $pictures = Picture::find ('all', array ('order' => 'id DESC', 'limit' => $limit + 1, 'conditions' => $conditions));
+
+    $next_id = ($temp = (count ($pictures) > $limit ? end ($pictures) : null)) ? $temp->id : -1;
+
+    return $this->output_json (array (
+      'status' => true,
+      'pictures' => array_map (function ($picture) {
+        return array (
+            'id' => $picture->id,
+            'title' => $picture->title,
+            'url' => $picture->name->url ('800w'),
+            'gradient' => $picture->gradient
+          );
+      }, array_slice ($pictures, 0, $limit)),
+      'next_id' => $next_id
+    ));
+  }
 
   public function pictures () {
     $pictures = Picture::all ();
