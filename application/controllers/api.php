@@ -24,6 +24,30 @@ class Api extends Site_controller {
       }
     }
   }
+
+  public function prev_pictures () {
+    $prev_id = ($prev_id = $this->input_get ('prev_id')) ? $prev_id : 0;
+    $limit = ($limit = $this->input_get ('limit')) ? $limit : 5;
+
+    $conditions = array ('id >= ?', $prev_id);
+    $pictures = Picture::find ('all', array ('order' => 'id ASC', 'limit' => $limit + 1, 'conditions' => $conditions));
+
+    $prev_id = ($temp = (count ($pictures) > $limit ? end ($pictures) : null)) ? $temp->id : -1;
+
+    return $this->output_json (array (
+      'status' => true,
+      'pictures' => array_map (function ($picture) {
+        return array (
+            'id' => $picture->id,
+            'title' => $picture->title,
+            'url' => $picture->name->url ('800w'),
+            'gradient' => $picture->gradient
+          );
+      }, array_reverse (array_slice ($pictures, 0, $limit))),
+      'prev_id' => $prev_id
+    ));
+  }
+
   public function next_pictures () {
     $next_id = $this->input_get ('next_id');
     $limit = ($limit = $this->input_get ('limit')) ? $limit : 5;
