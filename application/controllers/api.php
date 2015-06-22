@@ -43,7 +43,7 @@ class Api extends Site_controller {
             'url' => $picture->name->url ('800w'),
             'gradient' => $picture->gradient
           );
-      }, array_reverse (array_slice ($pictures, 0, $limit))),
+      }, array_slice ($pictures, 0, $limit)),
       'prev_id' => $prev_id
     ));
   }
