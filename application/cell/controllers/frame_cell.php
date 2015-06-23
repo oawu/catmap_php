@@ -12,8 +12,16 @@ class Frame_cell extends Cell_Controller {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
   public function header () {
+    $links = array (
+        array ('name' => '會員管理', 'href' => base_url ('admin', 'users')),
+        array ('name' => '照片管理', 'href' => base_url ('admin', 'pictures')),
+        array ('name' => '留言管理', 'href' => base_url ('admin', 'comments')),
+        array ('name' => '按讚管理', 'href' => base_url ('admin', 'likes')),
+      );
     return $this->setUseCssList (true)
-                ->load_view ();
+                ->load_view (array (
+                    'links' => $links
+                  ));
   }
 
   /* render_cell ('frame_cell', 'footer', array ()); */

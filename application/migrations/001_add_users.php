@@ -13,6 +13,7 @@ class Migration_Add_users extends CI_Migration {
         `account` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '帳號',
         `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '密碼',
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '暱稱',
+        `avatar` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '頭像',
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '註冊時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         PRIMARY KEY (`id`),

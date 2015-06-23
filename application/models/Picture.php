@@ -13,9 +13,12 @@ class Picture extends OaModel {
   );
 
   static $has_many = array (
+    array ('comments', 'class_name' => 'Comment'),
+    array ('likes', 'class_name' => 'Like')
   );
 
   static $belongs_to = array (
+    array ('user', 'class_name' => 'User')
   );
 
   public function __construct ($attributes = array (), $guard_attributes = true, $instantiating_via_find = false, $new_record = true) {
@@ -23,6 +26,18 @@ class Picture extends OaModel {
 
     OrmImageUploader::bind ('name', 'PictureNameImageUploader');
 
+  }
+
+  public function destroy () {
+    array_map (function ($comment) {
+      $comment->destroy ();
+    }, $this->comments);
+
+    array_map (function ($like) {
+      $like->destroy ();
+    }, $this->likes);
+
+    return $this->name->cleanAllFiles () && $this->delete ();
   }
 
   public function update_gradient () {
