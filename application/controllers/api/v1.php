@@ -27,7 +27,6 @@ class V1 extends Api_controller {
         'avatar' => $user->avatar->url ('100w'),
       );
   }
-
   private function _picture_format ($picture) {
     return array (
         'id' => $picture->id,
@@ -41,6 +40,14 @@ class V1 extends Api_controller {
         'comment_count' => count ($picture->comments),
         'user' => $this->_user_format ($picture->user)
       );
+  }
+  public function test () {
+    return $this->output_json (array (
+        'method' => $_SERVER['REQUEST_METHOD'],
+        'gets' => $_GET,
+        'posts' => $_POST,
+        'files' => $_FILES
+      ));
   }
 
   public function prev_pictures () {
