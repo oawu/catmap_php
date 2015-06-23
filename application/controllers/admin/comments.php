@@ -127,11 +127,11 @@ class Comments extends Admin_controller {
       );
 
     if (!verifyCreateOrm ($comment = Comment::create ($params)))
-        return identity ()->set_session ('_flash_message', '新增失敗！', true)
-                          ->set_session ('user_id', $user_id, true)
-                          ->set_session ('picture_id', $picture_id, true)
-                          ->set_session ('content', $content, true)
-                          && redirect (array ('admin', 'comments', 'add'), 'refresh');
+      return identity ()->set_session ('_flash_message', '新增失敗！', true)
+                        ->set_session ('user_id', $user_id, true)
+                        ->set_session ('picture_id', $picture_id, true)
+                        ->set_session ('content', $content, true)
+                        && redirect (array ('admin', 'comments', 'add'), 'refresh');
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
                       && redirect (array ('admin', 'comments'), 'refresh');
@@ -165,7 +165,7 @@ class Comments extends Admin_controller {
     $this->pagination->initialize ($configs);
     $pagination = $this->pagination->create_links ();
 
-    $comments = Comment::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'conditions' => $conditions));
+    $comments = Comment::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'include' => array ('user', 'picture'), 'conditions' => $conditions));
 
     $message = identity ()->get_session ('_flash_message', true);
 

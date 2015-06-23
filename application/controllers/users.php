@@ -56,6 +56,13 @@ class Users extends Site_controller {
                         ->set_session ('password', $password, true)
                         ->set_session ('name', $name, true)
                         && redirect (array ('users', 'edit', $user->id), 'refresh');
+    
+    if (User::find_by_account ($account))
+      return identity ()->set_session ('_flash_message', '帳號已經有人使用！', true)
+                        ->set_session ('account', $account, true)
+                        ->set_session ('password', $password, true)
+                        ->set_session ('name', $name, true)
+                        && redirect (array ('users', 'edit', $user->id), 'refresh');
 
     $user->account  = $account;
     $user->password = password ($password);

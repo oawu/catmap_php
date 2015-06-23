@@ -134,10 +134,10 @@ class Pictures extends Admin_controller {
       );
 
     if (!verifyCreateOrm ($picture = Picture::create ($params)))
-        return identity ()->set_session ('_flash_message', '新增失敗！', true)
-                          ->set_session ('user_id', $user_id, true)
-                          ->set_session ('title', $title, true)
-                          && redirect (array ('admin', 'pictures', 'add'), 'refresh');
+      return identity ()->set_session ('_flash_message', '新增失敗！', true)
+                        ->set_session ('user_id', $user_id, true)
+                        ->set_session ('title', $title, true)
+                        && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     if (!$picture->name->put ($name) && ($picture->delete () || true))
       return identity ()->set_session ('_flash_message', '新增失敗！', true)
@@ -179,7 +179,7 @@ class Pictures extends Admin_controller {
     $this->pagination->initialize ($configs);
     $pagination = $this->pagination->create_links ();
 
-    $pictures = Picture::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'conditions' => $conditions));
+    $pictures = Picture::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'include' => array ('user'), 'conditions' => $conditions));
 
     $message = identity ()->get_session ('_flash_message', true);
 

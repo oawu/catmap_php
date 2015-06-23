@@ -5,7 +5,7 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class Api extends Site_controller {
+class A extends Site_controller {
 
   public function __construct () {
     parent::__construct ();

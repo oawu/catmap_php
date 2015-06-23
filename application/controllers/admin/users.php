@@ -122,11 +122,11 @@ class Users extends Admin_controller {
       );
 
     if (!verifyCreateOrm ($user = User::create ($params)))
-        return identity ()->set_session ('_flash_message', '新增失敗！', true)
-                          ->set_session ('account', $account, true)
-                          ->set_session ('password', $password, true)
-                          ->set_session ('name', $name, true)
-                          && redirect (array ('admin', 'users', 'add'), 'refresh');
+      return identity ()->set_session ('_flash_message', '新增失敗！', true)
+                        ->set_session ('account', $account, true)
+                        ->set_session ('password', $password, true)
+                        ->set_session ('name', $name, true)
+                        && redirect (array ('admin', 'users', 'add'), 'refresh');
     
     if (!$user->avatar->put ($avatar) && ($user->delete () || true))
       return identity ()->set_session ('_flash_message', '新增失敗！', true)

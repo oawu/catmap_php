@@ -116,10 +116,10 @@ class Likes extends Admin_controller {
       );
 
     if (!verifyCreateOrm ($like = Like::create ($params)))
-        return identity ()->set_session ('_flash_message', '新增失敗！', true)
-                          ->set_session ('user_id', $user_id, true)
-                          ->set_session ('picture_id', $picture_id, true)
-                          && redirect (array ('admin', 'likes', 'add'), 'refresh');
+      return identity ()->set_session ('_flash_message', '新增失敗！', true)
+                        ->set_session ('user_id', $user_id, true)
+                        ->set_session ('picture_id', $picture_id, true)
+                        && redirect (array ('admin', 'likes', 'add'), 'refresh');
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
                       && redirect (array ('admin', 'likes'), 'refresh');
@@ -153,7 +153,7 @@ class Likes extends Admin_controller {
     $this->pagination->initialize ($configs);
     $pagination = $this->pagination->create_links ();
 
-    $likes = Like::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'conditions' => $conditions));
+    $likes = Like::find ('all', array ('offset' => $offset, 'limit' => $limit, 'order' => 'id DESC', 'include' => array ('user', 'picture'), 'conditions' => $conditions));
 
     $message = identity ()->get_session ('_flash_message', true);
 

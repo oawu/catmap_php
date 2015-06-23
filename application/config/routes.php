@@ -49,6 +49,8 @@ Route::get ('admin/pictures/(:num)', 'admin/pictures@index($1)');
 Route::get ('admin/comments/(:num)', 'admin/comments@index($1)');
 Route::get ('admin/likes/(:num)', 'admin/likes@index($1)');
 
+// Route::get ('api', 'api/v1@index');
+
 // Route::get ('admin/logout', 'admin/main@logout');
 
 // $route['main/index/(:num)/(:num)'] = "main/aaa/$1/$2";
