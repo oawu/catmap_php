@@ -146,6 +146,7 @@ class Pictures extends Admin_controller {
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $picture->update_gradient ();
+    $picture->update_color ();
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
                       && redirect (array ('admin', 'pictures'), 'refresh');

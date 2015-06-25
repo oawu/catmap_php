@@ -47,4 +47,15 @@ class Picture extends OaModel {
       $this->save ();      
     }
   }
+
+  public function update_color () {
+    $image_utility = ImageUtility::create (FCPATH . implode('/', $this->name->path ()));
+    echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+    var_dump ($image_utility->getAnalysisDatas (1));
+    exit ();
+    // if (ImageUtility::verifyDimension ($dimension = $image_utility->getAnalysisDatas ())) {
+    //   $this->gradient = gradient ($dimension['height'] / $dimension['width']);
+    //   $this->save ();      
+    // }
+  }
 }
