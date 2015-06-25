@@ -78,6 +78,7 @@ class Pictures extends Admin_controller {
                           && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
       
       $picture->update_gradient ();
+      $picture->update_color ();
     }
 
     $picture->user_id = $user_id;
@@ -124,13 +125,16 @@ class Pictures extends Admin_controller {
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $params = array (
-        'user_id'   => $user_id,
-        'title'     => $title,
-        'name'      => '',
-        'gradient'  => '1',
-        'latitude'  => '',
-        'longitude' => '',
-        'altitude'  => ''
+        'user_id'     => $user_id,
+        'title'       => $title,
+        'name'        => '',
+        'gradient'    => '1',
+        'latitude'    => '',
+        'longitude'   => '',
+        'altitude'    => '',
+        'color_red'   => '',
+        'color_green' => '',
+        'color_blue'  => ''
       );
 
     if (!verifyCreateOrm ($picture = Picture::create ($params)))

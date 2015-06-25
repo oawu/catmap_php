@@ -36,6 +36,9 @@ class V1 extends Api_controller {
         'latitude' => $picture->latitude,
         'longitude' => $picture->longitude,
         'altitude' => $picture->altitude,
+        'color_red' => $picture->color_red,
+        'color_green' => $picture->color_green,
+        'color_blue' => $picture->color_blue,
         'like_count' => count ($picture->likes),
         'comment_count' => count ($picture->comments),
         'user' => $this->_user_format ($picture->user)
@@ -112,13 +115,16 @@ class V1 extends Api_controller {
       return $this->_error ('user_id 錯誤！');
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
-        'user_id'   => $user->id,
-        'title'     => $title,
-        'name'      => '',
-        'gradient'  => 1,
-        'latitude'  => $latitude,
-        'longitude' => $longitude,
-        'altitude'  => $altitude
+        'user_id'     => $user->id,
+        'title'       => $title,
+        'name'        => '',
+        'gradient'    => 1,
+        'latitude'    => $latitude,
+        'longitude'   => $longitude,
+        'altitude'    => $altitude,
+        'color_red'   => '',
+        'color_green' => '',
+        'color_blue'  => ''
       ))))
       return $this->_error ('新增失敗！');
 
@@ -126,6 +132,7 @@ class V1 extends Api_controller {
       return $this->_error ('新增失敗，上傳圖片失敗！');
 
     $picture->update_gradient ();
+    $picture->update_color ();
 
     return $this->output_json (array (
       'status' => true,
