@@ -34,9 +34,9 @@ class V1 extends Api_controller {
       return array ();
     else
       return array (
-          'color_red' => $picture->color_red,
-          'color_green' => $picture->color_green,
-          'color_blue' => $picture->color_blue
+          'red' => $picture->color_red,
+          'green' => $picture->color_green,
+          'blue' => $picture->color_blue
         );
   }
   private function _picture_format ($picture, $size = '800w') {
