@@ -14,4 +14,102 @@ class Main extends Site_controller {
   public function index () {
     $this->load_view ();
   }
+
+  public function demo () {
+    $this->load->library ('CreateDemo');
+
+    $pics = CreateDemo::pics (1, 10, $tags = array ('正妹', '台灣', '名人'));
+    echo "\n 新增 " . count ($pics) . "筆會員。\n==========================================\n";
+
+    foreach ($pics as $pic) {
+      $params = array (
+          'account'  => CreateDemo::password (),
+          'password' => password (CreateDemo::password ()),
+          'name'     => CreateDemo::text (4, 10),
+          'avatar'   => $pic['url'],
+          'color_red'   => '',
+          'color_green' => '',
+          'color_blue'  => ''
+        );
+      if (verifyCreateOrm ($user = User::create ($params))) {
+        if ($user->avatar->put_url ($pic['url'])) {
+          $user->update_color ();
+          echo "Create a user, id: " . $user->id . "\n";
+        } else {
+          $user->delete ();
+        }
+      }
+    }
+
+
+
+    $pics = CreateDemo::pics (10, 30, $tags = array ('北港', '朝天宮', '象山', '新竹', '台東', '花蓮'));
+    echo "\n 新增 " . count ($pics) . "筆照片。\n==========================================\n";
+
+    foreach ($pics as $pic) {
+      $user = User::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
+      $params = array (
+          'user_id'     => $user->id,
+          'title'       => $pic['title'],
+          'name'        => $pic['url'],
+          'gradient'    => '1',
+          'latitude'    => '0',
+          'longitude'   => '0',
+          'altitude'    => '0',
+          'color_red'   => '',
+          'color_green' => '',
+          'color_blue'  => ''
+        );
+      if (verifyCreateOrm ($picture = Picture::create ($params))) {
+        if ($picture->name->put_url ($pic['url'])) {
+          $picture->update_gradient ();
+          $picture->update_color ();
+          echo "Create a pic, id: " . $user->id . "\n";
+        } else {
+          $picture->delete ();
+        }
+      }
+    }
+
+
+
+    $comments = range (0, 50);
+    echo "\n 新增 " . count ($comments) . "筆留言。\n==========================================\n";
+
+    array_map (function ($i) {
+      $user = User::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
+      $picture = Picture::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
+
+      $params = array (
+        'user_id'    => $user->id,
+        'picture_id' => $picture->id,
+        'content'    => CreateDemo::text (40, 50)
+      );
+
+      if (verifyCreateOrm ($comment = Comment::create ($params))) {
+        echo "Create a comment, id: " . $comment->id . "\n";
+      }
+    }, $comments);
+
+
+
+    $likes = range (0, 50);
+    echo "\n 新增 " . count ($likes) . "筆喜歡。\n==========================================\n";
+
+    array_map (function ($i) {
+      $user = User::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
+      $picture = Picture::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
+
+      $params = array (
+        'user_id'    => $user->id,
+        'picture_id' => $picture->id
+      );
+
+      if (verifyCreateOrm ($like = Like::create ($params))) {
+        echo "Create a like, id: " . $like->id . "\n";
+      }
+    }, $likes);
+
+    echo "\n==========================================\n  順利結束！\n==========================================\n";
+  }
 }
