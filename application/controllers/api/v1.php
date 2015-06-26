@@ -48,7 +48,8 @@ class V1 extends Api_controller {
         'gradient' => $picture->gradient,
         'like_count' => count ($picture->likes),
         'comment_count' => count ($picture->comments),
-        'user' => $this->_user_format ($picture->user, '140x140c')
+        'user' => $this->_user_format ($picture->user, '140x140c'),
+        'created_at' => $picture->created_at->format ('Y年m月d日 H:i')
       );
 
     if ($position = $this->_position_format ($picture))
