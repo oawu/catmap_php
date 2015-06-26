@@ -78,7 +78,10 @@ class Pictures extends Admin_controller {
                           && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
       
       $picture->update_gradient ();
-      $picture->update_color ();
+
+      delay_job ('main', 'index', array (
+          'id' => $picture->id
+        ));
     }
 
     $picture->user_id = $user_id;
@@ -129,9 +132,9 @@ class Pictures extends Admin_controller {
         'title'       => $title,
         'name'        => '',
         'gradient'    => '1',
-        'latitude'    => '',
-        'longitude'   => '',
-        'altitude'    => '',
+        'latitude'    => '0',
+        'longitude'   => '0',
+        'altitude'    => '0',
         'color_red'   => '',
         'color_green' => '',
         'color_blue'  => ''
@@ -150,7 +153,10 @@ class Pictures extends Admin_controller {
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $picture->update_gradient ();
-    $picture->update_color ();
+
+    delay_job ('main', 'index', array (
+        'id' => $picture->id
+      ));
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
                       && redirect (array ('admin', 'pictures'), 'refresh');

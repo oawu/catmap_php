@@ -11,7 +11,7 @@ class Main extends Delay_controller {
   }
 
   public function index () {
-    $sec = $this->input_post ('sec');
-    sleep ($sec);
+    if (($id = $this->input_post ('id')) && ($picture = Picture::find_by_id ($id)))
+      $picture->update_color ();
   }
 }

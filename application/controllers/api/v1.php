@@ -27,22 +27,45 @@ class V1 extends Api_controller {
         'avatar' => $user->avatar->url ('100w'),
       );
   }
+  private function _position_format ($picture) {
+    if (!(isset ($picture->latitude) && isset ($picture->longitude) && isset ($picture->altitude)))
+      return array ();
+    else
+      return array (
+          'latitude' => $picture->latitude,
+          'longitude' => $picture->longitude,
+          'altitude' => $picture->altitude
+        );
+  }
+  private function _color_format ($picture) {
+    if (!(isset ($picture->color_red) && isset ($picture->color_green) && isset ($picture->color_blue)))
+      return array ();
+    else
+      return array (
+          'color_red' => $picture->color_red,
+          'color_green' => $picture->color_green,
+          'color_blue' => $picture->color_blue
+        );
+
+  }
   private function _picture_format ($picture) {
-    return array (
+    $return = array (
         'id' => $picture->id,
         'title' => $picture->title,
         'url' => $picture->name->url (),
         'gradient' => $picture->gradient,
-        'latitude' => $picture->latitude,
-        'longitude' => $picture->longitude,
-        'altitude' => $picture->altitude,
-        'color_red' => $picture->color_red,
-        'color_green' => $picture->color_green,
-        'color_blue' => $picture->color_blue,
         'like_count' => count ($picture->likes),
         'comment_count' => count ($picture->comments),
         'user' => $this->_user_format ($picture->user)
       );
+
+    if ($position = $this->_position_format ($picture))
+      $return['position'] = $position;
+
+    if ($color = $this->_color_format ($picture))
+      $return['color'] = $color;
+
+    return $return;
   }
   public function test () {
     return $this->output_json (array (
@@ -132,7 +155,10 @@ class V1 extends Api_controller {
       return $this->_error ('新增失敗，上傳圖片失敗！');
 
     $picture->update_gradient ();
-    $picture->update_color ();
+
+    delay_job ('main', 'index', array (
+        'id' => $picture->id
+      ));
 
     return $this->output_json (array (
       'status' => true,
