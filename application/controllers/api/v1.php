@@ -30,7 +30,7 @@ class V1 extends Api_controller {
         );
   }
   private function _color_format ($picture) {
-    if (!(isset ($picture->color_red) && isset ($picture->color_green) && isset ($picture->color_blue)))
+    if (!(isset ($picture->color_red) && isset ($picture->color_green) && isset ($picture->color_blue) && ($picture->color_red != '') && ($picture->color_green != '') && ($picture->color_blue != '')))
       return array ();
     else
       return array (
@@ -38,7 +38,6 @@ class V1 extends Api_controller {
           'color_green' => $picture->color_green,
           'color_blue' => $picture->color_blue
         );
-
   }
   private function _picture_format ($picture, $size = '800w') {
     $return = array (
