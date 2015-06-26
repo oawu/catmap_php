@@ -10,8 +10,12 @@ class Main extends Delay_controller {
     parent::__construct ();
   }
 
-  public function index () {
+  public function picture () {
     if (($id = $this->input_post ('id')) && ($picture = Picture::find_by_id ($id)))
       $picture->update_color ();
+  }
+  public function user () {
+    if (($id = $this->input_post ('id')) && ($user = User::find_by_id ($id)))
+      $user->update_color ();
   }
 }

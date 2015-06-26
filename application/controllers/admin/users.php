@@ -68,6 +68,10 @@ class Users extends Admin_controller {
                           ->set_session ('password', $password, true)
                           ->set_session ('name', $name, true)
                           && redirect (array ('admin', 'users', 'edit', $user->id), 'refresh');
+      else
+        delay_job ('main', 'user', array (
+            'id' => $user->id
+          ));
 
     $user->account  = $account;
     $user->password = password ($password);
@@ -118,7 +122,10 @@ class Users extends Admin_controller {
         'account'  => $account,
         'password' => password ($password),
         'name'     => $name,
-        'avatar'   => ''
+        'avatar'   => '',
+        'color_red'   => '',
+        'color_green' => '',
+        'color_blue'  => ''
       );
 
     if (!verifyCreateOrm ($user = User::create ($params)))
@@ -134,6 +141,10 @@ class Users extends Admin_controller {
                         ->set_session ('password', $password, true)
                         ->set_session ('name', $name, true)
                         && redirect (array ('admin', 'users', 'add'), 'refresh');
+
+    delay_job ('main', 'user', array (
+        'id' => $user->id
+      ));
 
     return identity ()->set_session ('_flash_message', '新增成功！', true)
                       && redirect (array ('admin', 'users'), 'refresh');

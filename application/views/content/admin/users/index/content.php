@@ -26,6 +26,7 @@
         <th width='60'>ID</th>
         <th >帳號</th>
         <th width='150'>暱稱</th>
+        <th width='50'>顏色</th>
         <th width='150'>頭像</th>
         <th width='150'>編輯</th>
       </tr>
@@ -38,7 +39,8 @@
             <td><?php echo $user->id;?></td>
             <td><?php echo $user->account;?></td>
             <td><?php echo $user->name;?></td>
-            <td><?php echo img ($user->avatar->url ('100w'));?></td>
+            <td><div class='color' style='background-color: rgba(<?php echo $user->color_red;?>, <?php echo $user->color_green;?>, <?php echo $user->color_blue;?>, 1);'></div></td>
+            <td><?php echo img ($user->avatar->url ('140x140c'));?></td>
             <td class='edit'>
               <a href='<?php echo base_url ('admin', 'users', 'edit', $user->id);?>'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32"><path fill="#444444" d="M12 20l4-2 14-14-2-2-14 14-2 4zM9.041 27.097c-0.989-2.085-2.052-3.149-4.137-4.137l3.097-8.525 4-2.435 12-12h-6l-12 12-6 20 20-6 12-12v-6l-12 12-2.435 4z"></path></svg></a>
               /
@@ -47,7 +49,7 @@
           </tr>
   <?php }
       } else { ?>
-        <tr><td colspan='5'>目前沒有任何資料。</td></tr>
+        <tr><td colspan='6'>目前沒有任何資料。</td></tr>
   <?php
       } ?>
     <tbody>

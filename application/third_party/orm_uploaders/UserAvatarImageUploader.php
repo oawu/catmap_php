@@ -10,8 +10,7 @@ class UserAvatarImageUploader extends OrmImageUploader {
   public function getVersions () {
     return array (
         '' => array (),
-        '100w' => array ('resize', 100, 100, 'width'),
-        '120x80c' => array ('adaptiveResizeQuadrant', 120, 80, 'c')
+        '140x140c' => array ('adaptiveResizeQuadrant', 140, 140, 'c')
       );
   }
 }

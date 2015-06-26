@@ -32,7 +32,7 @@
           <tr>
             <th>頭像</th>
             <td>
-              <?php echo img ($user->avatar->url ('100w'));?>
+              <?php echo img ($user->avatar->url ('140x140c'));?>
               <hr/>
               <input type='file' name='avatar' value='' placeholder='請選擇照片..'accept="image/gif, image/jpeg, image/png"/>
             </td>

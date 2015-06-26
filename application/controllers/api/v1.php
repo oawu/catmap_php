@@ -19,14 +19,6 @@ class V1 extends Api_controller {
         'message' => $message
       ));
   }
-  private function _user_format ($user) {
-    return array (
-        'id' => $user->id,
-        'name' => $user->name,
-        'account' => $user->account,
-        'avatar' => $user->avatar->url ('100w'),
-      );
-  }
   private function _position_format ($picture) {
     if (!(isset ($picture->latitude) && isset ($picture->longitude) && isset ($picture->altitude)))
       return array ();
@@ -48,21 +40,34 @@ class V1 extends Api_controller {
         );
 
   }
-  private function _picture_format ($picture) {
+  private function _picture_format ($picture, $size = '800w') {
     $return = array (
         'id' => $picture->id,
         'title' => $picture->title,
-        'url' => $picture->name->url (),
+        'url' => $picture->name->url ($size),
         'gradient' => $picture->gradient,
         'like_count' => count ($picture->likes),
         'comment_count' => count ($picture->comments),
-        'user' => $this->_user_format ($picture->user)
+        'user' => $this->_user_format ($picture->user, '140x140c')
       );
 
     if ($position = $this->_position_format ($picture))
       $return['position'] = $position;
 
     if ($color = $this->_color_format ($picture))
+      $return['color'] = $color;
+
+    return $return;
+  }
+  private function _user_format ($user, $size = '') {
+    $return = array (
+        'id' => $user->id,
+        'name' => $user->name,
+        'account' => $user->account,
+        'avatar' => $user->avatar->url ($size),
+      );
+
+    if ($color = $this->_color_format ($user))
       $return['color'] = $color;
 
     return $return;
@@ -156,7 +161,7 @@ class V1 extends Api_controller {
 
     $picture->update_gradient ();
 
-    delay_job ('main', 'index', array (
+    delay_job ('main', 'picture', array (
         'id' => $picture->id
       ));
 
@@ -185,7 +190,10 @@ class V1 extends Api_controller {
         'account'  => $account,
         'password' => password ($password),
         'name'     => $name,
-        'avatar'   => ''
+        'avatar'   => '',
+        'color_red'   => '',
+        'color_green' => '',
+        'color_blue'  => ''
       );
 
     if (!verifyCreateOrm ($user = User::create ($params)))
@@ -193,6 +201,10 @@ class V1 extends Api_controller {
     
     if (!$user->avatar->put ($avatar) && ($user->delete () || true))
       return $this->_error ('新增失敗，上傳圖片失敗！');
+
+    delay_job ('main', 'user', array (
+        'id' => $user->id
+      ));
 
     return $this->output_json (array (
       'status' => true,

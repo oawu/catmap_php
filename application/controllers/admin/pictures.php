@@ -79,7 +79,7 @@ class Pictures extends Admin_controller {
       
       $picture->update_gradient ();
 
-      delay_job ('main', 'index', array (
+      delay_job ('main', 'picture', array (
           'id' => $picture->id
         ));
     }
@@ -154,7 +154,7 @@ class Pictures extends Admin_controller {
 
     $picture->update_gradient ();
 
-    delay_job ('main', 'index', array (
+    delay_job ('main', 'picture', array (
         'id' => $picture->id
       ));
 
