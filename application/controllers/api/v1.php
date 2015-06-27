@@ -136,7 +136,7 @@ class V1 extends Api_controller {
     $altitude    = trim ($this->input_post ('altitude'));
     $name        = $this->input_post ('name', true);
 
-    if (!($description && $latitude && $longitude && $altitude && $name))
+    if (!($description && (is_numeric ($latitude )|| $latitude) && (is_numeric ($longitude) || $longitude) && (is_numeric ($altitude )|| $altitude) && $name))
       return $this->_error ('填寫資訊有少！');
 
     if (!($user = User::find_by_id ($user_id, array ('select' => 'id'))))
