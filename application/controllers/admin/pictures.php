@@ -41,15 +41,15 @@ class Pictures extends Admin_controller {
     if (!($picture = Picture::find_by_id ($id)))
       return redirect (array ('admin', 'pictures'));
 
-    $message = identity ()->get_session ('_flash_message', true);
-    $user_id = identity ()->get_session ('user_id', true);
-    $title   = identity ()->get_session ('title', true);
+    $message     = identity ()->get_session ('_flash_message', true);
+    $user_id     = identity ()->get_session ('user_id', true);
+    $description = identity ()->get_session ('description', true);
 
     $this->load_view (array (
-        'picture' => $picture,
-        'message' => $message,
-        'user_id' => $user_id,
-        'title'   => $title
+        'picture'     => $picture,
+        'message'     => $message,
+        'user_id'     => $user_id,
+        'description' => $description
       ));
   }
 
@@ -60,21 +60,21 @@ class Pictures extends Admin_controller {
     if (!$this->has_post ())
       return redirect (array ('admin', 'pictures', 'edit', $picture->id));
 
-    $user_id = trim ($this->input_post ('user_id'));
-    $title   = trim ($this->input_post ('title'));
-    $name    = $this->input_post ('name', true);
+    $user_id     = trim ($this->input_post ('user_id'));
+    $description = trim ($this->input_post ('description'));
+    $name        = $this->input_post ('name', true);
 
-    if (!($user_id && $title && ((String)$picture->name || $name)))
+    if (!($user_id && $description && ((String)$picture->name || $name)))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('user_id', $user_id, true)
-                        ->set_session ('title', $title, true)
+                        ->set_session ('description', $description, true)
                         && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
 
     if ($name) {
       if (!($picture->name->put ($name)))
         return identity ()->set_session ('_flash_message', '修改失敗！', true)
                           ->set_session ('user_id', $user_id, true)
-                          ->set_session ('title', $title, true)
+                          ->set_session ('description', $description, true)
                           && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
       
       $picture->update_gradient ();
@@ -84,13 +84,13 @@ class Pictures extends Admin_controller {
         ));
     }
 
-    $picture->user_id = $user_id;
-    $picture->title   = $title;
+    $picture->user_id     = $user_id;
+    $picture->description = description ($description);
 
     if (!$picture->save ())
       return identity ()->set_session ('_flash_message', '修改失敗！', true)
                         ->set_session ('user_id', $user_id, true)
-                        ->set_session ('title', $title, true)
+                        ->set_session ('description', $description, true)
                         && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
 
     return identity ()->set_session ('_flash_message', '修改成功！', true)
@@ -102,14 +102,14 @@ class Pictures extends Admin_controller {
       return identity ()->set_session ('_flash_message', '請先新增會員！', true)
                       && redirect (array ('admin', 'pictures'), 'refresh');
   
-    $message = identity ()->get_session ('_flash_message', true);
-    $user_id = identity ()->get_session ('user_id', true);
-    $title   = identity ()->get_session ('title', true);
+    $message     = identity ()->get_session ('_flash_message', true);
+    $user_id     = identity ()->get_session ('user_id', true);
+    $description = identity ()->get_session ('description', true);
 
     $this->load_view (array (
-        'message' => $message,
-        'user_id' => $user_id,
-        'title'   => $title
+        'message'     => $message,
+        'user_id'     => $user_id,
+        'description' => $description
       ));
   }
 
@@ -117,19 +117,19 @@ class Pictures extends Admin_controller {
     if (!$this->has_post ())
       return redirect (array ('admin', 'pictures', 'add'));
 
-    $user_id = trim ($this->input_post ('user_id'));
-    $title   = trim ($this->input_post ('title'));
-    $name    = $this->input_post ('name', true);
+    $user_id     = trim ($this->input_post ('user_id'));
+    $description = trim ($this->input_post ('description'));
+    $name        = $this->input_post ('name', true);
 
-    if (!($user_id && $title && $name))
+    if (!($user_id && $description && $name))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('user_id', $user_id, true)
-                        ->set_session ('title', $title, true)
+                        ->set_session ('description', $description, true)
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $params = array (
         'user_id'     => $user_id,
-        'title'       => $title,
+        'description' => description ($description),
         'name'        => '',
         'gradient'    => '1',
         'latitude'    => '0',
@@ -143,13 +143,13 @@ class Pictures extends Admin_controller {
     if (!verifyCreateOrm ($picture = Picture::create ($params)))
       return identity ()->set_session ('_flash_message', '新增失敗！', true)
                         ->set_session ('user_id', $user_id, true)
-                        ->set_session ('title', $title, true)
+                        ->set_session ('description', $description, true)
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     if (!$picture->name->put ($name) && ($picture->delete () || true))
       return identity ()->set_session ('_flash_message', '新增失敗！', true)
                         ->set_session ('user_id', $user_id, true)
-                        ->set_session ('title', $title, true)
+                        ->set_session ('description', $description, true)
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $picture->update_gradient ();
@@ -163,7 +163,7 @@ class Pictures extends Admin_controller {
   }
 
   public function index ($offset = 0) {
-    $columns = array ('title' => 'string');
+    $columns = array ('description' => 'string');
     $configs = array ('admin', 'pictures', '%s');
 
     $conditions = conditions ($columns,

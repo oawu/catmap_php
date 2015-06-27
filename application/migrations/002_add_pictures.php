@@ -11,7 +11,7 @@ class Migration_Add_pictures extends CI_Migration {
       "CREATE TABLE `pictures` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `user_id` int(11) NOT NULL,
-        `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '標題',
+        `description` text COMMENT '描述',
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `gradient` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '斜率，height/width',
         `latitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '緯度',

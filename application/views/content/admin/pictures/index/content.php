@@ -24,7 +24,7 @@
       <tr>
         <th width='60'>ID</th>
         <th width='120'>會員</th>
-        <th >標題</th>
+        <th >描述</th>
         <th width='120'>斜率(h/w)</th>
         <th width='50'>顏色</th>
         <th width='120'>照片</th>
@@ -38,7 +38,7 @@
           <tr>
             <td><?php echo $picture->id;?></td>
             <td><?php echo $picture->user->name;?>(<?php echo $picture->user->id;?>)</td>
-            <td><?php echo $picture->title;?></td>
+            <td style='word-break:break-all;'><?php echo $picture->description;?></td>
             <td><?php echo $picture->gradient;?></td>
             <td><div class='color' style='background-color: rgba(<?php echo $picture->color_red;?>, <?php echo $picture->color_green;?>, <?php echo $picture->color_blue;?>, 1);'></div></td>
             <td><?php echo img ($picture->name->url ('100w'));?></td>

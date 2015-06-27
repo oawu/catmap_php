@@ -42,7 +42,7 @@ class V1 extends Api_controller {
   private function _picture_format ($picture, $size = '800w') {
     $return = array (
         'id' => $picture->id,
-        'title' => $picture->title,
+        'description' => $picture->description,
         'url' => $picture->name->url ($size),
         'gradient' => $picture->gradient,
         'like_count' => count ($picture->likes),
@@ -129,14 +129,14 @@ class V1 extends Api_controller {
     if ($message = $this->_method ('POST'))
       return $this->_error ($message);
 
-    $user_id   = $this->input_post ('user_id');
-    $title     = trim ($this->input_post ('title'));
-    $latitude  = trim ($this->input_post ('latitude'));
-    $longitude = trim ($this->input_post ('longitude'));
-    $altitude  = trim ($this->input_post ('altitude'));
-    $name      = $this->input_post ('name', true);
+    $user_id     = $this->input_post ('user_id');
+    $description = trim ($this->input_post ('description'));
+    $latitude    = trim ($this->input_post ('latitude'));
+    $longitude   = trim ($this->input_post ('longitude'));
+    $altitude    = trim ($this->input_post ('altitude'));
+    $name        = $this->input_post ('name', true);
 
-    if (!($title && $latitude && $longitude && $altitude && $name))
+    if (!($description && $latitude && $longitude && $altitude && $name))
       return $this->_error ('填寫資訊有少！');
 
     if (!($user = User::find_by_id ($user_id, array ('select' => 'id'))))
@@ -144,7 +144,7 @@ class V1 extends Api_controller {
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
         'user_id'     => $user->id,
-        'title'       => $title,
+        'description' => description ($description),
         'name'        => '',
         'gradient'    => 1,
         'latitude'    => $latitude,

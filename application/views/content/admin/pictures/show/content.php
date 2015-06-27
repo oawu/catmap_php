@@ -12,9 +12,9 @@
         </td>
       </tr>
       <tr>
-        <th>標題</th>
-        <td>
-          <?php echo $picture->title;?>
+        <th>描述</th>
+        <td style='word-break:break-all;'>
+          <?php echo $picture->description;?>
         </td>
       </tr>
       <tr>

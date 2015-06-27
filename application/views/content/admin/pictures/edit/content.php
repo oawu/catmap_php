@@ -26,7 +26,7 @@
           <tr>
             <th>名稱</th>
             <td>
-              <input type='text' name='title' value='<?php echo $title ? $title : $picture->title;?>' placeholder='請輸入標題..' maxlength='200' pattern='.{1,200}' required title='輸入 1~200 個字元!' />
+              <textarea name='description' placeholder='請輸入描述..'><?php echo $description ? $description : $picture->description;?></textarea>
             </td>
           </tr>
           <tr>

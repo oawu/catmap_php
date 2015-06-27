@@ -34,7 +34,7 @@ class Main extends Site_controller {
       if (verifyCreateOrm ($user = User::create ($params))) {
         if ($user->avatar->put_url ($pic['url'])) {
           $user->update_color ();
-          echo "Create a user, id: " . $user->id . "\n";
+          echo " Create a user, id: " . $user->id . "\n";
         } else {
           $user->delete ();
         }
@@ -50,7 +50,7 @@ class Main extends Site_controller {
       $user = User::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
       $params = array (
           'user_id'     => $user->id,
-          'title'       => $pic['title'],
+          'description' => CreateDemo::text (10, 50),
           'name'        => $pic['url'],
           'gradient'    => '1',
           'latitude'    => '0',
@@ -64,7 +64,7 @@ class Main extends Site_controller {
         if ($picture->name->put_url ($pic['url'])) {
           $picture->update_gradient ();
           $picture->update_color ();
-          echo "Create a pic, id: " . $user->id . "\n";
+          echo " Create a pic, id: " . $picture->id . "\n";
         } else {
           $picture->delete ();
         }
@@ -87,7 +87,7 @@ class Main extends Site_controller {
       );
 
       if (verifyCreateOrm ($comment = Comment::create ($params))) {
-        echo "Create a comment, id: " . $comment->id . "\n";
+        echo " Create a comment, id: " . $comment->id . "\n";
       }
     }, $comments);
 
@@ -106,7 +106,7 @@ class Main extends Site_controller {
       );
 
       if (verifyCreateOrm ($like = Like::create ($params))) {
-        echo "Create a like, id: " . $like->id . "\n";
+        echo " Create a like, id: " . $like->id . "\n";
       }
     }, $likes);
 
