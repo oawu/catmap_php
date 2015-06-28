@@ -1,4 +1,11 @@
 <div class='picture'>
+  <?php
+    if ($picture->has_color ()) { ?>
+      <div class='background' style='background-color: rgba(<?php echo $picture->color_red;?>, <?php echo $picture->color_green;?>, <?php echo $picture->color_blue;?>, 1);'></div>
+  <?php
+    }
+  ?>
+
   <div class='img'>
     <img src='<?php echo $picture->name->url ();?>' />
   </div>

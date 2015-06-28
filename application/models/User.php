@@ -34,6 +34,9 @@ class User extends OaModel {
     return $this->avatar->cleanAllFiles () && $this->delete ();
   }
 
+  public function has_color () {
+    return (isset ($this->color_red) && isset ($this->color_green) && isset ($this->color_blue) && ($this->color_red != '') && ($this->color_green != '') && ($this->color_blue != ''));
+  }
   public function update_color () {
     $image_utility = ImageUtility::create (FCPATH . implode('/', $this->avatar->path ()));
 

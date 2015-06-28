@@ -20,7 +20,7 @@ class V1 extends Api_controller {
       ));
   }
   private function _position_format ($picture) {
-    if (!(isset ($picture->latitude) && isset ($picture->longitude) && isset ($picture->altitude) && ($picture->latitude != '') && ($picture->longitude != '') && ($picture->altitude != '')))
+    if (!$picture->has_position ())
       return array ();
     else
       return array (
@@ -30,7 +30,7 @@ class V1 extends Api_controller {
         );
   }
   private function _color_format ($picture) {
-    if (!(isset ($picture->color_red) && isset ($picture->color_green) && isset ($picture->color_blue) && ($picture->color_red != '') && ($picture->color_green != '') && ($picture->color_blue != '')))
+    if (!$picture->has_color ())
       return array ();
     else
       return array (
