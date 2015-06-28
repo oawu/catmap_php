@@ -7,5 +7,6 @@
     <div class='loading_data'>資料讀取中...</div>
   </div>
 </div>
+<a href='' id='fancyBox' title=''></a>
 
 <?php echo render_cell ('site_frame_cell', 'footer');?>

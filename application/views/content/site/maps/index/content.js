@@ -5,6 +5,11 @@
 
 $(function () {
   var $map = $('#map');
+  var $fancyBox = $('#fancyBox').fancybox ({
+        padding : 0,
+        helpers : {overlay: {locked: false}, title : {type : 'over'}, thumbs: {width: 50, height: 50}},
+        beforeLoad: function () { this.title = $(this.element).attr ('title'); }
+      });
   var $loadingData = $('.map .loading_data');
   var $loading = $('<div />').attr ('id', 'loading')
                              .append ($('<div />'))
@@ -54,7 +59,7 @@ $(function () {
               draggable: false,
               raiseOnDrag: false,
               clickable: true,
-              labelContent: '<div class="img"><img src="' + t.url + '" /></div>',
+              labelContent: '<div class="img"><img src="' + t.url.w100 + '" /></div>',
               labelAnchor: new google.maps.Point (50, 50),
               labelClass: "marker_label",
               icon: {
@@ -67,7 +72,9 @@ $(function () {
               initCallback: function (e) { $(e).find ('.img').imgLiquid ({verticalAlign: 'top'}); }
             });
 
-            google.maps.event.addListener(markerWithLabel, 'click', function () { });
+            google.maps.event.addListener(markerWithLabel, 'click', function () {
+              $fancyBox.attr ('title', t.des).attr ('href', t.url.ori).click ();
+            });
 
             return {
               id: t.id,
