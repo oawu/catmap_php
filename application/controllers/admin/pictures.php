@@ -132,9 +132,9 @@ class Pictures extends Admin_controller {
         'description' => description ($description),
         'name'        => '',
         'gradient'    => '1',
-        'latitude'    => '0',
-        'longitude'   => '0',
-        'altitude'    => '0',
+        'latitude'    => '',
+        'longitude'   => '',
+        'altitude'    => '',
         'color_red'   => '',
         'color_green' => '',
         'color_blue'  => ''

@@ -20,7 +20,7 @@ class V1 extends Api_controller {
       ));
   }
   private function _position_format ($picture) {
-    if (!(isset ($picture->latitude) && isset ($picture->longitude) && isset ($picture->altitude)))
+    if (!(isset ($picture->latitude) && isset ($picture->longitude) && isset ($picture->altitude) && ($picture->latitude != '') && ($picture->longitude != '') && ($picture->altitude != '')))
       return array ();
     else
       return array (
@@ -131,16 +131,16 @@ class V1 extends Api_controller {
 
     $user_id     = $this->input_post ('user_id');
     $description = trim ($this->input_post ('description'));
-    $latitude    = trim ($this->input_post ('latitude'));
-    $longitude   = trim ($this->input_post ('longitude'));
-    $altitude    = trim ($this->input_post ('altitude'));
+    $latitude    = (($latitude = trim ($this->input_post ('latitude'))) ? $latitude : '');
+    $longitude   = (($longitude = trim ($this->input_post ('longitude'))) ? $longitude : '');
+    $altitude    = (($altitude = trim ($this->input_post ('altitude'))) ? $altitude : '');
     $name        = $this->input_post ('name', true);
 
-    if (!($description && (is_numeric ($latitude )|| $latitude) && (is_numeric ($longitude) || $longitude) && (is_numeric ($altitude )|| $altitude) && $name))
+    if (!($description && $name))
       return $this->_error ('填寫資訊有少！');
 
-    if (!($user = User::find_by_id ($user_id, array ('select' => 'id'))))
-      return $this->_error ('user_id 錯誤！');
+    if (!($user_id && ($user = User::find_by_id ($user_id, array ('select' => 'id')))))
+      return $this->_error ('User ID 錯誤！');
 
     if (!verifyCreateOrm ($picture = Picture::create (array (
         'user_id'     => $user->id,
