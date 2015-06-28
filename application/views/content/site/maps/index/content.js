@@ -13,13 +13,17 @@ $(function () {
   var _map = null;
   var _markers = [];
   var _markerCluster = null;
-// clearMarkers
+  var _isGetPictures = false;
+
   function formatFloat (num, pos) {
     var size = Math.pow (10, pos);
     return Math.round (num * size) / size;
   }
 
   function getPictures () {
+    if (_isGetPictures)
+      return;
+
     $loadingData.addClass ('show');
     var northEast = _map.getBounds().getNorthEast ();
     var southWest = _map.getBounds().getSouthWest ();
@@ -29,10 +33,11 @@ $(function () {
       data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
               SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},  },
       async: true, cache: false, dataType: 'json', type: 'POST',
-      beforeSend: function () { }
+      beforeSend: function () {
+        _isGetPictures = true;
+      }
     })
     .done (function (result) {
-      // console.error (result);
 
       if (result.status) {
 
@@ -95,12 +100,14 @@ $(function () {
           });
           _markers = _markers.concat (markers);
         }
+        _isGetPictures = false;
         $loadingData.removeClass ('show');
       }
     })
     .fail (function (result) { ajaxError (result); })
     .complete (function (result) {
-        $loadingData.removeClass ('show');
+      _isGetPictures = false;
+      $loadingData.removeClass ('show');
     });
   }
 
