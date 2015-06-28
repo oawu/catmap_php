@@ -16,6 +16,9 @@ $(function () {
   var _isGetPictures = false;
   var _getPicturesTimer = null;
 
+  Array.prototype.diff = function (a) {
+    return this.filter (function (i) { return a.map (function (t) { return t.id; }).indexOf (i.id) < 0; });
+  };
   function formatFloat (num, pos) {
     var size = Math.pow (10, pos);
     return Math.round (num * size) / size;
@@ -25,7 +28,6 @@ $(function () {
     clearTimeout (_getPicturesTimer);
 
     _getPicturesTimer = setTimeout (function () {
-          console.error ('-');
       if (_isGetPictures)
         return;
       
@@ -73,39 +75,54 @@ $(function () {
             };
           });
 
-          if (!_markers.length) {
-            _markers = markers.map (function (t) {
-              _markerCluster.addMarker (t.marker);
-              return t;
-            });
-          } else {
-            var marker_ids = markers.map (function (t) { return t.id; });
-            _markers = _markers.map (function (t) {
-              if ($.inArray (t.id, marker_ids) != -1)
-                return t;
+          var deletes = _markers.diff (markers);
+          var adds = markers.diff (_markers);
 
-              _markerCluster.removeMarker (t.marker);
-              return null;
-            }).filter (function (t) { return t; });
+          var delete_ids = deletes.map (function (t) { return t.id; });
+          var add_ids = adds.map (function (t) { return t.id; });
 
-            marker_ids = _markers.map (function (t) { return t.id; });
+          _markerCluster.removeMarkers (deletes.map (function (t) { return t.marker; }));
+          _markerCluster.addMarkers (adds.map (function (t) { return t.marker; }));
+
+          _markers = _markers.filter (function (t) { return $.inArray (t.id, delete_ids) == -1; }).concat (markers.filter (function (t) { return $.inArray (t.id, add_ids) != -1; }));
+
+
+
+          // if (!_markers.length) {
+          //   _markers = markers.map (function (t) {
+          //     _markerCluster.addMarker (t.marker);
+          //     return t;
+          //   });
+          // } else {
+          //   var marker_ids = markers.map (function (t) { return t.id; });
+          //   _markers = _markers.map (function (t) {
+          //     if ($.inArray (t.id, marker_ids) != -1)
+          //       return t;
+
+          //     _markerCluster.removeMarker (t.marker);
+          //     return null;
+          //   }).filter (function (t) { return t; });
+
+          //   marker_ids = _markers.map (function (t) { return t.id; });
             
-            markers = markers.map (function (t) {
-              if ($.inArray (t.id, marker_ids) != -1)
-                return null;
+          //   markers = markers.map (function (t) {
+          //     if ($.inArray (t.id, marker_ids) != -1)
+          //       return null;
 
-              _markerCluster.addMarker (t.marker);
-              return t;
-            }).filter (function (t) { return t; });
-            _markers = _markers.concat (markers);
-          }
+          //     _markerCluster.addMarker (t.marker);
+          //     return t;
+          //   }).filter (function (t) { return t; });
+          //   _markers = _markers.concat (markers);
+          // }
+
+
           $loadingData.removeClass ('show');
           _isGetPictures = false;
         }
       })
       .fail (function (result) { ajaxError (result); })
       .complete (function (result) {});
-    }, 750);
+    }, 1000);
   }
 
   function initialize () {
