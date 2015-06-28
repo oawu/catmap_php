@@ -77,7 +77,6 @@ $(function () {
 
           var deletes = _markers.diff (markers);
           var adds = markers.diff (_markers);
-
           var delete_ids = deletes.map (function (t) { return t.id; });
           var add_ids = adds.map (function (t) { return t.id; });
 
@@ -86,43 +85,13 @@ $(function () {
 
           _markers = _markers.filter (function (t) { return $.inArray (t.id, delete_ids) == -1; }).concat (markers.filter (function (t) { return $.inArray (t.id, add_ids) != -1; }));
 
-
-
-          // if (!_markers.length) {
-          //   _markers = markers.map (function (t) {
-          //     _markerCluster.addMarker (t.marker);
-          //     return t;
-          //   });
-          // } else {
-          //   var marker_ids = markers.map (function (t) { return t.id; });
-          //   _markers = _markers.map (function (t) {
-          //     if ($.inArray (t.id, marker_ids) != -1)
-          //       return t;
-
-          //     _markerCluster.removeMarker (t.marker);
-          //     return null;
-          //   }).filter (function (t) { return t; });
-
-          //   marker_ids = _markers.map (function (t) { return t.id; });
-            
-          //   markers = markers.map (function (t) {
-          //     if ($.inArray (t.id, marker_ids) != -1)
-          //       return null;
-
-          //     _markerCluster.addMarker (t.marker);
-          //     return t;
-          //   }).filter (function (t) { return t; });
-          //   _markers = _markers.concat (markers);
-          // }
-
-
           $loadingData.removeClass ('show');
           _isGetPictures = false;
         }
       })
       .fail (function (result) { ajaxError (result); })
       .complete (function (result) {});
-    }, 1000);
+    }, 500);
   }
 
   function initialize () {
@@ -142,7 +111,7 @@ $(function () {
     ]);
 
     var option = {
-        zoom: 15,
+        zoom: 12,
         scaleControl: true,
         navigationControl: true,
         disableDoubleClickZoom: true,
@@ -156,7 +125,48 @@ $(function () {
     _map = new google.maps.Map ($map.get (0), option);
     _map.mapTypes.set ('map_style', styledMapType);
     _map.setMapTypeId ('map_style');
-    _markerCluster = new MarkerClusterer(_map);
+    _markerCluster = new MarkerClusterer(_map, [], {
+      styles: [{
+            url: 'resource/image/map/pictures_1.png',
+            height: 74,
+            width: 75,
+            textSize: 20,
+            textColor: '#ffffff',
+            backgroundPosition: "0 -4px"
+        },
+        {
+            url: 'resource/image/map/pictures_2.png',
+            height: 74,
+            width: 75,
+            textSize: 20,
+            textColor: '#ffffff',
+            backgroundPosition: "0 -4px"
+        },
+        {
+            url: 'resource/image/map/pictures_3.png',
+            height: 74,
+            width: 75,
+            textSize: 20,
+            textColor: '#ffffff',
+            backgroundPosition: "0 -4px"
+        },
+        {
+            url: 'resource/image/map/pictures_4.png',
+            height: 74,
+            width: 75,
+            textSize: 20,
+            textColor: '#ffffff',
+            backgroundPosition: "0 -4px"
+        },
+        {
+            url: 'resource/image/map/pictures_5.png',
+            height: 74,
+            width: 75,
+            textSize: 20,
+            textColor: '#ffffff',
+            backgroundPosition: "0 -4px"
+        }]
+    });
     
 
     google.maps.event.addListener(_map, 'zoom_changed', getPictures);

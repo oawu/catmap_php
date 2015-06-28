@@ -56,7 +56,7 @@ class Maps extends Site_controller {
     $this->add_hidden (array ('id' => 'get_pictures_url', 'value' => base_url ($this->get_class (), 'get_pictures')))
          ->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
          ->add_js (base_url ('resource', 'javascript', 'markerwithlabel_d2015_06_28', 'markerwithlabel.js'))
-         ->add_js (base_url ('resource', 'javascript', 'markerclusterer_v2.1.2', 'markerclusterer_packed.js'))
+         ->add_js (base_url ('resource', 'javascript', 'markerclusterer_v1.0', 'markerclusterer.js'))
          ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
          ->add_js ('', false)
          ->load_view (null);
