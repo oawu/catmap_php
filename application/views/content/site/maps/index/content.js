@@ -111,7 +111,7 @@ $(function () {
     ]);
 
     var option = {
-        zoom: 12,
+        zoom: 14,
         scaleControl: true,
         navigationControl: true,
         disableDoubleClickZoom: true,
