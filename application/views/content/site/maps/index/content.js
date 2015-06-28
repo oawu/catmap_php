@@ -65,18 +65,11 @@ $(function () {
             id: t.id,
             marker: markerWithLabel
           };
-          // return new google.maps.Marker ({
-          //   map: _map,
-          //   draggable: true,
-          //   optimized: false,
-          //   position: new google.maps.LatLng (t.lat, t.lng)
-          // });
         });
 
         if (!_markers.length) {
           _markers = markers.map (function (t) {
-            t.marker.setMap (_map);
-            // _markerCluster.addMarker (t.marker);
+            _markerCluster.addMarker (t.marker);
             return t;
           });
         } else {
@@ -86,7 +79,6 @@ $(function () {
               return t;
 
             _markerCluster.removeMarker (t.marker);
-            t.marker.setMap (null);
             return null;
           }).filter (function (t) {
             return t;
@@ -97,25 +89,12 @@ $(function () {
               return null;
 
             _markerCluster.addMarker (t.marker);
-            t.marker.setMap (_map);
             return t;
           }).filter (function (t) {
             return t;
           });
-          _markers.concat (markers);
+          _markers = _markers.concat (markers);
         }
-// console.error (markers);
-
-
-        // _markers.map (function (t) {
-        //   t.setMap (null);
-        // });
-        
-        // if (_markerCluster)
-          // _markerCluster.clearMarkers ();
-
-        // _markerCluster = new MarkerClusterer(_map, _markers.map (function (t) { return t.marker; }));
-        
         $loadingData.removeClass ('show');
       }
     })
