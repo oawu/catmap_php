@@ -20,7 +20,7 @@ class Demo extends Site_controller {
   //   $pic->update_color ();
   //   echo $this->get_run_time ($finish_time);
   // }
-  public function demo () {
+  public function create () {
     $this->load->library ('CreateDemo');
 
     $pics = CreateDemo::pics (1, 10, $tags = array ('正妹', '台灣', '名人'));
