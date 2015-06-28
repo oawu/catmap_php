@@ -5,17 +5,88 @@
 
 $(function () {
   var $map = $('#map');
+  var $loadingData = $('.map .loading_data');
   var $loading = $('<div />').attr ('id', 'loading')
                              .append ($('<div />'))
-                             .appendTo ($('body'));
+                             .appendTo ($('.map'));
   
   var _map = null;
   var _markers = [];
 
-
   function formatFloat (num, pos) {
     var size = Math.pow (10, pos);
     return Math.round (num * size) / size;
+  }
+
+  function getPictures () {
+    $loadingData.addClass ('show');
+    var northEast = _map.getBounds().getNorthEast ();
+    var southWest = _map.getBounds().getSouthWest ();
+
+    $.ajax ({
+      url: $('#get_pictures_url').val (),
+      data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
+              SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},  },
+      async: true, cache: false, dataType: 'json', type: 'POST',
+      beforeSend: function () { }
+    })
+    .done (function (result) {
+      // console.error (result);
+
+      if (result.status) {
+        _markers.map (function (t) {
+          t.setMap (null);
+        });
+        _markers = result.pictures.map (function (t) {
+          var markerWithLabel = new MarkerWithLabel ({
+            position: new google.maps.LatLng (t.lat, t.lng),
+            draggable: false,
+            raiseOnDrag: false,
+            map: _map,
+            clickable: true,
+            labelContent: ''+
+              '<div class="img">'+
+                '<img src="' + t.url + '" />'+
+              '</div>'+
+            '',
+            labelAnchor: new google.maps.Point (50, 50),
+            labelClass: "marker_label",
+            icon: {
+              path: 'M 0 0',
+              strokeColor: 'rgba(249, 39, 114, 0)',
+              strokeWeight: 1,
+              fillColor: 'rgba(249, 39, 114, 0)',
+              fillOpacity: 0
+            },
+            initCallback: function (e) {
+              $(e).find ('.img').imgLiquid ({verticalAlign: 'top'});
+            }
+          });
+
+          google.maps.event.addListener(markerWithLabel, 'click', function () {
+
+          });
+
+          return markerWithLabel;
+          // return new google.maps.Marker ({
+          //   map: _map,
+          //   draggable: true,
+          //   optimized: false,
+          //   position: new google.maps.LatLng (t.lat, t.lng)
+          // });
+        });
+        // $('.marker_label').imgLiquid ({verticalAlign: 'top'});
+        $loadingData.removeClass ('show');
+        setTimeout (function () {
+        // $('.marker_label').imgLiquid ({verticalAlign: 'top'});
+          // console.error ($('.marker_label').length);
+        },500);
+      }
+    })
+    .fail (function (result) { ajaxError (result); })
+    .complete (function (result) {
+        $loadingData.removeClass ('show');
+    });
   }
 
   function initialize () {
@@ -35,7 +106,7 @@ $(function () {
     ]);
 
     var option = {
-        zoom: 16,
+        zoom: 15,
         scaleControl: true,
         navigationControl: true,
         disableDoubleClickZoom: true,
@@ -43,81 +114,22 @@ $(function () {
         zoomControl: true,
         scrollwheel: true,
         streetViewControl: false,
-        center: new google.maps.LatLng (23.568596231491233, 120.3035703338623),
+        center: new google.maps.LatLng (25.03684951358938, 121.54878616333008),
       };
 
     _map = new google.maps.Map ($map.get (0), option);
     _map.mapTypes.set ('map_style', styledMapType);
     _map.setMapTypeId ('map_style');
+    
 
+    google.maps.event.addListener(_map, 'zoom_changed', getPictures);
+    google.maps.event.addListener(_map, 'dragend', getPictures);
 
- //    var populationOptions = {
- //      strokeColor: '#FF0000',
- //      strokeOpacity: 0.8,
- //      strokeWeight: 2,
- //      fillColor: '#FF0000',
- //      fillOpacity: 0.35,
- //      map: _map,
- //      center: new google.maps.LatLng (23.568596231491233, 120.3035703338623),
- //      radius: 10
- //    };
- //    var c = new google.maps.Circle (populationOptions);
-
- // var strictBounds = new google.maps.LatLngBounds(
- // new google.maps.LatLng(23.568596231491233, 121.3035703338623),
- // new google.maps.LatLng(23.568596231491233, 121.3035703338623));
-new google.maps.Marker ({
-        map: _map,
-        draggable: false,
-        position: new google.maps.LatLng (23.568596231491233, 120.3035703338623),
-        
-      });
-new google.maps.Marker ({
-        map: _map,
-        draggable: false,
-        position: new google.maps.LatLng (23.559912647638175, 120.29327065124517),
-        
-      });
-// new google.maps.Marker ({
-//         map: _map,
-//         draggable: false,
-//         position: new google.maps.LatLng (23.577279241269004, 120.31387001647954),
-        
-//       });
-
-    google.maps.event.addListener(_map, 'zoom_changed', function() {
-      console.error (_map.getCenter ().lat ());
-      console.error (_map.getCenter ().lng ());
-      console.error (_map.getZoom());
-      c.setRadius (200);
-    });
-    google.maps.event.addListener(_map, 'dragend', function() {
-      // map.setZoom(8);
-      // map.setCenter(marker.getPosition());
-// strictBounds.contains(_map.getCenter());
-
-//     var maxX = strictBounds.getNorthEast().lng(),
-//          maxY = strictBounds.getNorthEast().lat(),
-//          minX = strictBounds.getSouthWest().lng(),
-//          minY = strictBounds.getSouthWest().lat();
-
-//       // console.error (_map.getCenter ().lat ());
-//       // console.error (_map.getCenter ().lng ());
-//       // console.error (_map.getZoom());
-
-//       console.error (maxX);
-//       console.error (maxY);
-//       console.error (minX);
-//       console.error (minY);
-// console.error (strictBounds.contains(_map.getCenter()));
-console.error (_map.getBounds().getSouthWest ());
-console.error (_map.getBounds().getNorthEast ());
-
-    });
 
     $loading.fadeOut (function () {
       $(this).hide (function () {
         $(this).remove ();
+        getPictures ();
       });
     });
   }
