@@ -15,15 +15,15 @@ class Main extends Site_controller {
     $this->load_view ();
   }
   
-  private function get_run_time ($run_time_start) { return (microtime (true) - $run_time_start) < 1 ? (microtime (true) - $run_time_start).'秒' : gmdate ("耗時 : H小時 i分鐘 s秒", microtime (true) - $run_time_start); }
+  // private function get_run_time ($run_time_start) { return (microtime (true) - $run_time_start) < 1 ? (microtime (true) - $run_time_start).'秒' : gmdate ("耗時 : H小時 i分鐘 s秒", microtime (true) - $run_time_start); }
   
-  public function test () {
-    $pic = Picture::last ();
+  // public function test () {
+  //   $pic = Picture::last ();
     
-    $finish_time = microtime (true);
-    $pic->update_color ();
-    echo $this->get_run_time ($finish_time);
-  }
+  //   $finish_time = microtime (true);
+  //   $pic->update_color ();
+  //   echo $this->get_run_time ($finish_time);
+  // }
   public function demo () {
     $this->load->library ('CreateDemo');
 
