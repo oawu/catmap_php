@@ -4,8 +4,153 @@
  */
 
 @import "_oa";
+$pictureWidth: 300px;
+$pictureHorizontalMargin: 20px;
 
 #container {
   margin: 0 auto;
-  width: $mainWidth;
+  max-width: $mainWidth;
+  width: 100%;
+  overflow: hidden;
+
+  #pictures {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+    min-width: $pictureWidth + $pictureHorizontalMargin;
+
+    @for $i from 0 through 3 {
+      @media screen and (min-width: #{$i * ($pictureWidth + $pictureHorizontalMargin) + 1px}) and (max-width: #{($i + 1) * ($pictureWidth + $pictureHorizontalMargin)}) {
+        width: #{($i) * ($pictureWidth + $pictureHorizontalMargin)};
+      }
+    }
+
+    .picture {
+      display: inline-block;
+      width: $pictureWidth;
+      margin: $pictureHorizontalMargin / 2;
+      cursor: pointer;
+
+      background-color: rgba(255, 255, 255, 1);
+      overflow: hidden;
+      border: 1px solid rgba(216, 212, 210, 1);
+
+      @include border-radius(3px);
+      @include box-shadow(0 2px 6px rgba(0, 0, 0, .125));
+
+      &:hover {
+        @include box-shadow(0 2px 10px rgba(0, 0, 0, .275));
+      }
+      .img {
+        width: 100%;
+
+        img {
+          width: 100%;
+        }
+      }
+      .user {
+        position: relative;
+        width: 100%;
+        padding: 10px;
+        padding-bottom: 0;
+        text-align: left;
+        @include split-left (65px, '.avatar', '.info');
+
+        .avatar {
+          display: inline-block;
+          width: 65px;
+          height: 65px;
+          background-color: #fff;
+          overflow: hidden;
+          @include border-radius(50%);
+        }
+        .info {
+          padding-left: 10px;
+          .name {
+            margin-top: 15px;
+            font-size: large;
+            @include overflow-docx3();
+          }
+          .created_at {
+            margin-top: -1px;
+            font-size: x-small;
+            color: rgba(234, 72, 75, .6);
+            @include overflow-docx3();
+          }
+        }
+      }
+      .introduction {
+        text-align: left;
+        font-size: small;
+        border-top: 1px solid rgba(249, 130, 97, .3);
+        border-bottom: 1px solid rgba(249, 130, 97, .3);
+        margin: 10px 5px;
+        padding: 10px;
+
+      }
+      .bottom {
+        padding: 0 10px;
+        margin-bottom: 10px;
+        @include border-radius(0 0 3px 3px);
+        @include clearfix ();
+
+        .comment, .like {
+          font-size: x-small;
+          float: right;
+          color: rgba(234, 72, 75, 1);
+          @include opacity(.7);
+          @include transition(all .3s);
+
+          &.active, &:hover {
+            @include opacity(1);
+          }
+
+          &:before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: rgba(0, 0, 255, 0.2);
+            margin-right: 3px;
+          }
+        }
+        .comment {
+          margin-left: 20px;
+          &:before {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAXCAYAAADUUxW8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAOxJREFUeNrslM0KAVEYhg+jKStKdhZS9qzdgeEGbKzM2gqXwcKGS5CdBXu3QRbKTxSxkcTz1UdCNFkpp555+37e05mZvuNbOc7YGBMy3tc2wCMKfjh5MFpgBzQ4QjzS620+uda5XBiZyAZ+88X6m//mXzQzAAUYiXoyY6giLUiIavy0fFwGO53luAw41KEkNZhCDM7QhrJeHE8jKQPeAVebG8x3UlRjV+vWq2MPIK+nqGCsSVK1onmp9x/NQUjBAYoYmvfvpnFR62ntv5lt2EOWxu6rj6P5rPbZV/MS5pChYfjuv2o9AzNYXAQYADDZRf/e9GxwAAAAAElFTkSuQmCC) center center no-repeat;
+            background-size: 11px 16px;
+          }
+          &.active {
+            &:before {
+              background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAXCAYAAADUUxW8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAKpJREFUeNpifOPtfY+BgYGfgXTwkQVIiAIxExD/JUEjMxCzsUA5v0m0/SPIACYGCsCo5lHNI1HzVzSaaM3foXn2DpT+TqzmH0D8H4gnCm/ZogqiofwfhDT/gpYoZUCNFSABKF0GFf+FTTMnVPInEMcDNUxFVgTlx0Pl/0LVwzWzAfEXIPYCKlyLzX9QcS+oOjaY5ldA/AKIrYEKjuCLGqi8NRA/B+KXAAEGAA3UMyGKmtOdAAAAAElFTkSuQmCC) center center no-repeat;
+              background-size: 11px 16px;
+            }
+          }
+        }
+        .like {
+
+          &:before {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAWCAYAAAA1vze2AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAi9JREFUeNqslk1IVFEUx9/zI1AoclKzGqjIIBBsH4JYFshYIu1yUSspFy3MhSISlLnqcxeRYNDXplW2iIp2ios+FNQWuagoP8qSAg2jnr8j/5Hn8Cbv1Bz4cd5999z7v/fdc+6MHwSBl2qz9fVeGjsDrXAJLqcL2tTfv6qd47lbAZyErfIFrgMzEemBcvgBu9XOqshGaISv0CzfqPdZE7kG22EQ7stb+2q2RLbBQZiCU3rXAtNwSP3/LGIHWwF9sAWewQf1vYenet+nuLSJ4H9JJCzgMOyx7IMYFAl7XqfJK2EuNNb6RyAOizqnb8KeZ+ENPDSRj0pLs3kFzSnQmNFqByIWuQ9OQKkWFFMyxEI7+5Sng7SM+QXX4ayeXWwgQjwfzqmWbP57OVSnVXE3BDrYTu//rEvz/IHzzN/mJ68VrpIm3EXYAHe1uyCDyX24AcfgO7QhcGe5I3x3IVSDu6WseQRH4beDQC48gARMwnEEnkemsDrq4B0cgZuOu+iFBo2rCwtE1gkBo7jb2n5hBpenp3GjrsW4V37QUWQoZZyTyGb4qapOPdxy+bA9gQUocxLh8H2JzKhik3Gn4RUMw0u1k+PH4bOK0mknO6BYImYdmviK+t7CTrVfQ7viLL5EfWuK1KhWynQ3XdBNaxmzX9/9gNpx/XiNKH69xq8pUi0f18oeQxXU6jOZvVC7Sv0lig+PX7G8CJEp5fuw/jRM/CWrxlRXu/T5KvU7s8qWBBgAKQyOeC6OUgoAAAAASUVORK5CYII=) center center no-repeat;
+            background-size: 16px 16px;
+          }
+          &.active {
+            &:before {
+              background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAXCAYAAAD+4+QTAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAgRJREFUeNqslstLAlEUxh2zsOxB76ggyIp2QtSiKKJyVbbt9SdE0DKIIFu2DPojap1E6xYtCoLaGxUlQ2ql9rKH9h34pHHSvKYHfszcueecz7nn3DtqyWTSYrawx2PJYktgBWyC7WxO9T5f2thqUTcbWATtvNpUA/MRWQO94IXX1WKLlIF58AwqeF3g86KJeEEPiHMc53i9WCLlYAbEpKap2vJtZjlfsMgGcIJ30/M4n3tzJdCkhdGysradoA8MgA5QC+pAGygF1Rnio+AD3IJ78ACuwAk4BRdo53ctNDV1ZEhqfPUn8Ag+QSNwZBCRJQvyR9SASsPcK0UvbQxuZdJXg1ClKSiTObKIS5snmDckNZkAZ0wYtRTHYsx3DsatWLMQbka4js1AL1BAZ55jMIz8YSvPGlEeBYegpQAhnfGSZ5R5f1oYD6QebnAAmv4hpDNO4t3I95bWwqYTWIT3wCTXtkqxBuK3D6YhkPhzM9LBb+gwFUv5+dlVSjvemXpTRZGUX1c+x4p0RyTPmkS4aXOLoCYldDaLSCHveH/HsVlECl+i8iZyhDcYlkCSBYAdfLE9vzgOGMQ0xnWriIzxw1TPtrQzwQ5wcT+5ONY4r9Nf4sZVRIZ4rWCSXdDPL2OQc0GO+zlvpb/YYKY/B2a7Adc8ZpZ5jGczWa45fg62+Jn45f8twABtb4bKLFlgFwAAAABJRU5ErkJggg==) center center no-repeat;
+              background-size: 15px 16px;
+            }
+          }
+        }
+      }
+    }
+
+    & ~ .loading {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      & > div {
+        @include loading(50px);
+      }
+    }
+  }
 }

@@ -23,6 +23,7 @@ class Oa_controller extends Root_controller {
     $this->add_meta (array ('http-equiv' => 'Content-type', 'content' => 'text/html; charset=utf-8'));
   }
 
+
   protected function set_componemt_path () {
     $this->componemt_path = array_filter (func_get_args ());
     return $this;

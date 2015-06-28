@@ -54,42 +54,72 @@
  * @author      OA Wu <comdan66@gmail.com>
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
-#footer {
-  margin: 30px auto;
-  height: 50px;
+body {
+  padding-top: 65px;
+}
+
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  background-color: #fb7853;
+  border-bottom: 1px solid #e9795a;
+  z-index: 999;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
+  -moz-box-shadow: 0 0 5px #f5967a;
+  -webkit-box-shadow: 0 0 5px #f5967a;
+  box-shadow: 0 0 5px #f5967a;
+}
+#header > div {
+  display: inline-block;
+  margin: 0 auto;
+  max-width: 960px;
+  width: 100%;
   *zoom: 1;
 }
-#footer:after {
+#header > div:after {
   display: table;
   content: "";
   line-height: 0;
   clear: both;
 }
-#footer > div {
+#header > div .l, #header > div .r {
   float: left;
+  position: relative;
+  display: inline-block;
+}
+#header > div .r {
+  float: right;
+}
+#header > div .l {
+  width: calc(100% - 150px);
+}
+#header > div .r {
+  width: 150px;
+}
+#header > div .l, #header > div .r {
   height: 100%;
+  text-align: left;
+  *zoom: 1;
 }
-#footer > div.l, #footer > div.r {
+#header > div .l:after, #header > div .r:after {
+  display: table;
+  content: "";
+  line-height: 0;
+  clear: both;
+}
+#header > div .l a, #header > div .r a {
   display: inline-block;
-  width: calc(50% - 125px);
-  background-color: #cac8c7;
-  height: 1px;
-  margin-top: 20px;
-}
-#footer > div.c {
+  float: left;
+  line-height: 32px;
+  padding: 0 10px;
   display: inline-block;
-  width: 250px;
-}
-#footer > div.c > div:first-child {
-  color: rgba(89, 89, 89, 0.8);
-  font-weight: bold;
-}
-#footer > div.c > div:last-child {
-  margin-top: 5px;
-}
-#footer > div.c > div:last-child a {
-  display: inline-block;
-  color: rgba(42, 90, 149, 0.7);
+  color: rgba(255, 255, 255, 0.9);
   font-weight: bold;
   text-decoration: none;
   -moz-transition: all 0.3s;
@@ -97,8 +127,27 @@
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border-bottom: 1px solid transparent;
+  border-bottom-width: 3px;
+  border-color: transparent;
 }
-#footer > div.c > div:last-child a:hover {
-  color: rgba(12, 65, 109, 0.85);
-  border-bottom: 1px solid rgba(12, 65, 109, 0.85);
+#header > div .l a:hover, #header > div .r a:hover {
+  color: white;
+  border-bottom: 1px solid white;
+}
+#header > div .l a.active, #header > div .l a:hover, #header > div .r a.active, #header > div .r a:hover {
+  border-bottom-width: 3px;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+#header > div .l a.active, #header > div .r a.active {
+  color: white;
+  border-color: white;
+}
+#header > div .l a + a {
+  margin-left: 10px;
+}
+#header > div .r a {
+  float: right;
+}
+#header > div .r a + a {
+  margin-right: 10px;
 }
