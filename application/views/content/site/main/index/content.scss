@@ -161,7 +161,7 @@ $pictureHorizontalMargin: 20px;
       margin-top: 10px;
       margin-bottom: 10px;
       & > div {
-        @include loading(50px);
+        @include loading(rgba(229, 225, 223, 1), 50px);
       }
     }
   }
