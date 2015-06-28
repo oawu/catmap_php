@@ -1,4 +1,4 @@
-<?php echo render_cell ('frame_cell', 'header');?>
+<?php echo render_cell ('admin_frame_cell', 'header');?>
 
 <div id='container'>
   <form class='login' action='<?php echo base_url (array ('admin', 'main', 'signin'));?>' method='post'>
@@ -28,4 +28,4 @@
     </div>
   </form>
 </div>
-<?php echo render_cell ('frame_cell', 'footer');?>
+<?php echo render_cell ('admin_frame_cell', 'footer');?>

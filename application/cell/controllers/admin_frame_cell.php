@@ -5,9 +5,9 @@
  * @copyright   Copyright (c) 2015 OA Wu Design
  */
 
-class Frame_cell extends Cell_Controller {
+class Admin_frame_cell extends Cell_Controller {
 
-  /* render_cell ('frame_cell', 'header', array ()); */
+  /* render_cell ('admin_frame_cell', 'header', array ()); */
   // public function _cache_header () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
@@ -24,7 +24,7 @@ class Frame_cell extends Cell_Controller {
                   ));
   }
 
-  /* render_cell ('frame_cell', 'footer', array ()); */
+  /* render_cell ('admin_frame_cell', 'footer', array ()); */
   // public function _cache_footer () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }
@@ -33,7 +33,7 @@ class Frame_cell extends Cell_Controller {
                 ->load_view ();
   }
   
-  /* render_cell ('frame_cell', 'pagination', $pagination); */
+  /* render_cell ('admin_frame_cell', 'pagination', $pagination); */
   // public function _cache_pagination () {
   //   return array ('time' => 60 * 60, 'key' => null);
   // }

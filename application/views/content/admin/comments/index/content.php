@@ -1,4 +1,4 @@
-<?php echo render_cell ('frame_cell', 'header');?>
+<?php echo render_cell ('admin_frame_cell', 'header');?>
 
 <div id='container'>
 
@@ -60,4 +60,4 @@
 
 </div>
 
-<?php echo render_cell ('frame_cell', 'footer');?>
+<?php echo render_cell ('admin_frame_cell', 'footer');?>
