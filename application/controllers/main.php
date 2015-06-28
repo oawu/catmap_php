@@ -53,9 +53,9 @@ class Main extends Site_controller {
           'description' => CreateDemo::text (10, 50),
           'name'        => $pic['url'],
           'gradient'    => '1',
-          'latitude'    => '0',
-          'longitude'   => '0',
-          'altitude'    => '0',
+          'latitude'    => '',
+          'longitude'   => '',
+          'altitude'    => '',
           'color_red'   => '',
           'color_green' => '',
           'color_blue'  => ''
