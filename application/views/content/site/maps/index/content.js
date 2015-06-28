@@ -23,6 +23,8 @@ $(function () {
   function getPictures () {
     if (_isGetPictures)
       return;
+    
+    _isGetPictures = true;
 
     $loadingData.addClass ('show');
     var northEast = _map.getBounds().getNorthEast ();
@@ -33,9 +35,7 @@ $(function () {
       data: { NorthEast: {latitude: northEast.lat (), longitude: northEast.lng ()},
               SouthWest: {latitude: southWest.lat (), longitude: southWest.lng ()},  },
       async: true, cache: false, dataType: 'json', type: 'POST',
-      beforeSend: function () {
-        _isGetPictures = true;
-      }
+      beforeSend: function () {}
     })
     .done (function (result) {
 
@@ -105,10 +105,7 @@ $(function () {
       }
     })
     .fail (function (result) { ajaxError (result); })
-    .complete (function (result) {
-      _isGetPictures = false;
-      $loadingData.removeClass ('show');
-    });
+    .complete (function (result) {});
   }
 
   function initialize () {
