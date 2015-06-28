@@ -13,7 +13,7 @@
   </div>
   <div class='introduction'><?php echo $picture->description;?></div>
   <div class='bottom'>
-    <div class='comment'>留言 <?php echo count ($picture->likes);?></div>
-    <div class='like'>人氣 <?php echo count ($picture->comments);?></div>
+    <div class='comment'>+<?php echo count ($picture->likes);?> 個最愛</div>
+    <div class='like'><?php echo count ($picture->comments);?> 則留言</div>
   </div>
 </div>
