@@ -46,11 +46,11 @@ class Demo extends Site_controller {
       }
     }
 
-
-
-    $pics = CreateDemo::pics (10, 30, $tags = array ('北港', '朝天宮', '象山', '新竹', '台東', '花蓮'));
+    $pics = CreateDemo::pics (100, 200, $tags = array ('北港', '朝天宮', '象山', '新竹', '台東', '花蓮'));
     echo "\n 新增 " . count ($pics) . "筆照片。\n==========================================\n";
 
+    $lat = 25.03684951358938;
+    $lng = 121.54878616333008;
     foreach ($pics as $pic) {
       $user = User::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
       $params = array (
@@ -58,8 +58,8 @@ class Demo extends Site_controller {
           'description' => CreateDemo::text (10, 50),
           'name'        => $pic['url'],
           'gradient'    => '1',
-          'latitude'    => '',
-          'longitude'   => '',
+          'latitude'    => $lat + (rand (-99999999, 99999999) * 0.000000001),
+          'longitude'   => $lng + (rand (-99999999, 99999999) * 0.000000001),
           'altitude'    => '',
           'color_red'   => '',
           'color_green' => '',
