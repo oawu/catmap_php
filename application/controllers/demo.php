@@ -23,7 +23,7 @@ class Demo extends Site_controller {
   public function create () {
     $this->load->library ('CreateDemo');
 
-    $pics = CreateDemo::pics (1, 10, $tags = array ('貓咪', '貓', '貓星人', '正妹', '台灣', '名人'));
+    $pics = CreateDemo::pics (1, 10, $tags = array ('貓咪', '貓', '貓星人', '柴犬', '可愛', '狗', '寵物', '台灣', '名人'));
     echo "\n 新增 " . count ($pics) . "筆會員。\n==========================================\n";
 
     foreach ($pics as $pic) {
@@ -46,7 +46,7 @@ class Demo extends Site_controller {
       }
     }
 
-    $pics = CreateDemo::pics (100, 200, $tags = array ('貓咪', '貓', '貓星人', '北港', '朝天宮', '象山', '新竹', '台東', '花蓮'));
+    $pics = CreateDemo::pics (100, 200, $tags = array ('貓咪', '貓', '貓星人', '柴犬', '可愛', '狗', '寵物', '北港', '朝天宮', '象山', '新竹', '台東', '花蓮'));
     echo "\n 新增 " . count ($pics) . "筆照片。\n==========================================\n";
 
     $lat = 25.03684951358938;
