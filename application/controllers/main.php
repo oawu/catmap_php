@@ -12,14 +12,13 @@ class Main extends Site_controller {
   }
 
   public function index () {
-    $this
-      ->add_hidden (array ('id' => 'get_pictures_url', 'value' => base_url ($this->get_class (), 'get_pictures')))
-                ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
-      ->add_js (base_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
-      ->add_js (base_url ('resource', 'javascript', 'imagesloaded_v3.1.8', 'imagesloaded.pkgd.min.js'))
-      ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
-      ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
-    ->load_view ();
+    $this->add_hidden (array ('id' => 'get_pictures_url', 'value' => base_url ($this->get_class (), 'get_pictures')))
+         ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
+         ->add_js (base_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
+         ->add_js (base_url ('resource', 'javascript', 'imagesloaded_v3.1.8', 'imagesloaded.pkgd.min.js'))
+         ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'jquery.timeago.js'))
+         ->add_js (base_url ('resource', 'javascript', 'jquery-timeago_v1.3.1', 'locales', 'jquery.timeago.zh-TW.js'))
+         ->load_view ();
   }
 
   public function get_pictures () {

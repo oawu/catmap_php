@@ -12,6 +12,7 @@ class Maps extends Site_controller {
   }
 
   public function index () {
-    $this->load_view (null);
+    $this->add_js ('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-TW', false)
+          ->load_view (null);
   }
 }
