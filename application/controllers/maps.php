@@ -37,7 +37,7 @@ class Maps extends Site_controller {
     $north_east = $this->input_post ('NorthEast');
     $south_west = $this->input_post ('SouthWest');
 
-    if (isset ($north_east['latitude']) && isset ($south_west['latitude']) && isset ($north_east['longitude']) && isset ($south_west['longitude']))
+    if (!(isset ($north_east['latitude']) && isset ($south_west['latitude']) && isset ($north_east['longitude']) && isset ($south_west['longitude'])))
       return $this->output_json (array ('status' => true, 'pictures' => array ()));
 
     $pictures = array_map (function ($picture) {
