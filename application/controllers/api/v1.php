@@ -72,6 +72,7 @@ class V1 extends Api_controller {
 
     return $return;
   }
+
   public function test () {
     return $this->output_json (array (
         'method' => $_SERVER['REQUEST_METHOD'],
@@ -79,6 +80,38 @@ class V1 extends Api_controller {
         'posts' => $_POST,
         'files' => $_FILES
       ));
+  }
+
+  public function region_pictures () {
+    $center = $this->input_get ('center');
+    $span   = $this->input_get ('span');
+    
+    if (!(isset ($center['latitude']) && isset ($center['longitude']) && isset ($span['latitudeDelta']) && isset ($span['longitudeDelta'])))
+      return $this->output_json (array ('status' => true, 'pictures' => array ()));
+
+    $north_east = array (
+      'latitude' => $center['latitude'] + ($span['latitudeDelta'] / 2),
+      'longitude' => $center['longitude'] + ($span['longitudeDelta'] / 2)
+      );
+    $south_west = array (
+      'latitude' => $center['latitude'] - ($span['latitudeDelta'] / 2),
+      'longitude' => $center['longitude'] - ($span['longitudeDelta'] / 2)
+      );
+
+    $pictures = array_map (function ($picture) {
+      return array (
+          'id' => $picture->id,
+          'lat' => $picture->latitude,
+          'lng' => $picture->longitude,
+          'des' => $picture->description,
+          'url' => array (
+              'ori' => $picture->name->url (),
+              'w100' => $picture->name->url ('100w')
+            )
+        );
+    }, Picture::find ('all', array ('conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude']))));
+
+    return $this->output_json (array ('status' => true, 'pictures' => $pictures));
   }
 
   public function prev_pictures () {
