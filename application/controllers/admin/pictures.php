@@ -179,9 +179,9 @@ class Pictures extends Admin_controller {
         'latitude'    => '',
         'longitude'   => '',
         'altitude'    => '',
-        
-        'horizontal'  => '',
-        'vertical'    => '',
+
+        'accuracy_horizontal' => '',
+        'accuracy_vertical'   => '',
 
         'city'        => $city,
         'country'     => $country,

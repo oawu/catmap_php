@@ -67,8 +67,8 @@ class Demo extends Site_controller {
           'longitude'   => $lng + (rand (-99999999, 99999999) * 0.000000001),
           'altitude'    => rand (1, 60),
 
-          'horizontal'  => rand (1, 60),
-          'vertical'    => rand (1, 60),
+          'accuracy_horizontal' => rand (1, 60),
+          'accuracy_vertical'   => rand (1, 60),
 
           'city'        => $cities[array_rand ($cities)],
           'country'     => '台灣',

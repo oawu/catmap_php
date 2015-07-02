@@ -41,11 +41,19 @@ class Picture extends OaModel {
   }
 
   public function has_color () {
-    return (isset ($this->color_red) && isset ($this->color_green) && isset ($this->color_blue) && ($this->color_red != '') && ($this->color_green != '') && ($this->color_blue != ''));
+    return isset ($this->color_red) && isset ($this->color_green) && isset ($this->color_blue) && ($this->color_red != '') && ($this->color_green != '') && ($this->color_blue != '');
   }
 
   public function has_position () {
-    return (isset ($this->latitude) && isset ($this->longitude) && isset ($this->altitude) && ($this->latitude != '') && ($this->longitude != '') && ($this->altitude != ''));
+    return isset ($this->latitude) && isset ($this->longitude) && isset ($this->altitude) && ($this->latitude != '') && ($this->longitude != '') && ($this->altitude != '');
+  }
+
+  public function has_accuracy () {
+    return isset ($this->accuracy_horizontal) && isset ($this->accuracy_vertical) && ($this->accuracy_horizontal != '') && ($this->accuracy_vertical != '');
+  }
+
+  public function has_address () {
+    return isset ($this->city) && isset ($this->country) && isset ($this->address) && ($this->city != '') && ($this->country != '') && ($this->address != '');
   }
 
   public function update_gradient () {

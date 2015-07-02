@@ -23,8 +23,8 @@ class Migration_Add_pictures extends CI_Migration {
         `longitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '經度',
         `altitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '海拔',
 
-        `horizontal` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '平面準確度(單位 m)',
-        `vertical` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '高度準確度(單位 m)',
+        `accuracy_horizontal` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '平面準確度(單位 m)',
+        `accuracy_vertical` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '高度準確度(單位 m)',
 
         `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '城市',
         `country` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '國家',

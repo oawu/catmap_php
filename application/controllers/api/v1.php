@@ -19,6 +19,16 @@ class V1 extends Api_controller {
         'message' => $message
       ));
   }
+  private function _color_format ($picture) {
+    if (!$picture->has_color ())
+      return array ();
+    else
+      return array (
+          'red' => $picture->color_red,
+          'green' => $picture->color_green,
+          'blue' => $picture->color_blue
+        );
+  }
   private function _position_format ($picture) {
     if (!$picture->has_position ())
       return array ();
@@ -29,14 +39,23 @@ class V1 extends Api_controller {
           'altitude' => $picture->altitude
         );
   }
-  private function _color_format ($picture) {
-    if (!$picture->has_color ())
+  private function _accuracy_format ($picture) {
+    if (!$picture->has_accuracy ())
       return array ();
     else
       return array (
-          'red' => $picture->color_red,
-          'green' => $picture->color_green,
-          'blue' => $picture->color_blue
+          'horizontal' => $picture->accuracy_horizontal,
+          'vertical' => $picture->accuracy_vertical
+        );
+  }
+  private function _address_format ($picture) {
+    if (!$picture->has_address ())
+      return array ();
+    else
+      return array (
+          'city' => $picture->city,
+          'country' => $picture->country,
+          'address' => $picture->address
         );
   }
   private function _picture_format ($picture, $size = '800w') {
@@ -51,11 +70,17 @@ class V1 extends Api_controller {
         'created_at' => $picture->created_at->format ('Y年m月d日 H:i')
       );
 
+    if ($color = $this->_color_format ($picture))
+      $return['color'] = $color;
+
     if ($position = $this->_position_format ($picture))
       $return['position'] = $position;
 
-    if ($color = $this->_color_format ($picture))
-      $return['color'] = $color;
+    if ($accuracy = $this->_accuracy_format ($picture))
+      $return['accuracy'] = $accuracy;
+
+    if ($address = $this->_address_format ($picture))
+      $return['address'] = $address;
 
     return $return;
   }
@@ -195,8 +220,8 @@ class V1 extends Api_controller {
         'longitude'   => isset ($position['longitude']) ? $position['longitude'] : '',
         'altitude'    => isset ($position['altitude']) ? $position['altitude'] : '',
 
-        'horizontal'  => isset ($accuracy['horizontal']) ? $accuracy['horizontal'] : '',
-        'vertical'    => isset ($accuracy['vertical']) ? $accuracy['vertical'] : '',
+        'accuracy_horizontal' => isset ($accuracy['horizontal']) ? $accuracy['horizontal'] : '',
+        'accuracy_vertical'   => isset ($accuracy['vertical']) ? $accuracy['vertical'] : '',
 
         'city'        => isset ($address['city']) ? $address['city'] : '',
         'country'     => isset ($address['country']) ? $address['country'] : '',

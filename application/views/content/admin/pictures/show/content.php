@@ -40,8 +40,8 @@
       <tr>
         <th>準確度</th>
         <td>
-          平面：<?php echo $picture->horizontal;?><br/>
-          高度：<?php echo $picture->vertical;?><br/>
+          平面：<?php echo $picture->accuracy_horizontal;?><br/>
+          高度：<?php echo $picture->accuracy_vertical;?><br/>
         </td>
       </tr>
       <tr>
