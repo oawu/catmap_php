@@ -26,7 +26,7 @@ class Migration_Add_pictures extends CI_Migration {
         `horizontal` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '平面準確度(單位 m)',
         `vertical` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '高度準確度(單位 m)',
 
-        `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '程式',
+        `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '城市',
         `country` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '國家',
         `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '地址',
 

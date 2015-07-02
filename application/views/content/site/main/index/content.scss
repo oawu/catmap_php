@@ -84,11 +84,26 @@ $pictureHorizontalMargin: 20px;
             font-size: large;
             @include overflow-docx3();
           }
-          .created_at {
-            margin-top: -1px;
-            font-size: x-small;
-            color: rgba(234, 72, 75, .6);
-            @include overflow-docx3();
+          .sub_item {
+            @include clearfix ();
+
+            .created_at, .city {
+              float: left;
+              display: inline-block;
+              margin-top: -1px;
+              font-size: x-small;
+              color: rgba(234, 72, 75, .6);
+              @include overflow-docx3();
+            }
+            .city {
+              font-size: xx-small;
+
+              &:before {
+                content: "·";
+                margin-right: 4px;
+                margin-left: 4px;
+              }
+            }
           }
         }
       }

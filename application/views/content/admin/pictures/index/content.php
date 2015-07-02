@@ -23,13 +23,12 @@
     <thead>
       <tr>
         <th width='60'>ID</th>
-        <th width='120'>會員</th>
-        <th >描述</th>
-        <th width='120'>斜率(h/w)</th>
+        <th width='80'>會員</th>
+        <th width='50'>斜率(h/w)</th>
         <th width='50'>顏色</th>
-        <th width='180'>位置</th>
-        <th width='180'>地址</th>
-        <th width='120'>照片</th>
+        <th width='120'>緯經度</th>
+        <th>地址</th>
+        <th width='50'>照片</th>
         <th width='150'>編輯</th>
       </tr>
     </thead>
@@ -40,7 +39,6 @@
           <tr>
             <td><?php echo $picture->id;?></td>
             <td><?php echo $picture->user->name;?>(<?php echo $picture->user->id;?>)</td>
-            <td style='word-break:break-all;'><?php echo $picture->description;?></td>
             <td><?php echo $picture->gradient;?></td>
             <td><div class='color' style='background-color: rgba(<?php echo $picture->color_red;?>, <?php echo $picture->color_green;?>, <?php echo $picture->color_blue;?>, 1);'></div></td>
             <td style='text-align:left;'>
@@ -48,7 +46,7 @@
               經度：<?php echo $picture->longitude;?><br/>
               海拔：<?php echo $picture->altitude;?>
             </td>
-            <td style='word-break:break-all;'><?php $picture->address;?></td>
+            <td style='word-break:break-all;'><?php echo $picture->address;?></td>
             <td><?php echo img ($picture->name->url ('100w'));?></td>
             <td class='edit'>
               <a href='<?php echo base_url ('admin', 'pictures', 'show', $picture->id);?>'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48"><path fill="#444444" d="M17.995 24c0 3.311 2.689 6 6 6s6-2.689 6-6v-0.050c-0.641 0.65-1.52 1.050-2.5 1.050-1.931 0-3.5-1.57-3.5-3.5 0-1.39 0.819-2.6 1.99-3.16-0.62-0.22-1.29-0.34-1.99-0.34-3.31 0-6 2.69-6 6zM46.655 20.59c-3.72-4.73-12.78-12.59-22.65-12.59-9.88 0-18.949 7.86-22.67 12.59-0.84 1.080-1.3 2.25-1.33 3.41 0.030 1.16 0.49 2.33 1.33 3.41 3.721 4.731 12.78 12.59 22.66 12.59s18.939-7.859 22.66-12.59c0.85-1.080 1.31-2.25 1.34-3.41-0.030-1.16-0.49-2.33-1.34-3.41zM23.995 34c-5.52 0-10-4.48-10-10s4.48-10 10-10 10 4.48 10 10c-0 5.52-4.48 10-10 10z"></path></svg></a>

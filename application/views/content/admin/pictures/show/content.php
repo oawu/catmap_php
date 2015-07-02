@@ -24,6 +24,27 @@
         </td>
       </tr>
       <tr>
+        <th>色系</th>
+        <td>
+          <div class='color' style='background-color: rgba(<?php echo $picture->color_red;?>, <?php echo $picture->color_green;?>, <?php echo $picture->color_blue;?>, 1);'></div>
+        </td>
+      </tr>
+      <tr>
+        <th>緯經度</th>
+        <td>
+          緯度：<?php echo $picture->latitude;?><br/>
+          經度：<?php echo $picture->longitude;?><br/>
+          海拔：<?php echo $picture->altitude;?>
+        </td>
+      </tr>
+      <tr>
+        <th>準確度</th>
+        <td>
+          平面：<?php echo $picture->horizontal;?><br/>
+          高度：<?php echo $picture->vertical;?><br/>
+        </td>
+      </tr>
+      <tr>
         <th>城市</th>
         <td>
           <?php echo $picture->city;?>

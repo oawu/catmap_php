@@ -15,7 +15,10 @@
     </div>
     <div class='info'>
       <div class='name'><?php echo $picture->user->name;?></div>
-      <div class='created_at timeago' data-time="<?php echo $picture->user->created_at;?>"><?php echo $picture->user->created_at;?></div>
+      <div class='sub_item'>
+        <div class='created_at timeago' data-time="<?php echo $picture->user->created_at;?>"><?php echo $picture->user->created_at;?></div>
+        <div class='city'><?php echo $picture->city;?></div>
+      </div>
     </div>
   </div>
   <div class='introduction'><?php echo $picture->description;?></div>
@@ -24,3 +27,4 @@
     <div class='like'>+<?php echo count ($picture->likes);?>個最愛</div>
   </div>
 </div>
+<!-- • -->

@@ -60,3 +60,11 @@
     }
   }
 }
+.color {
+  display: inline-block;
+  border: 1px solid rgba(90, 117, 130, 1);
+  width: 30px;
+  height: 30px;
+
+  @include border-radius(3px);
+}
