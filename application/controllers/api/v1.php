@@ -190,13 +190,9 @@ class V1 extends Api_controller {
     $user_id     = $this->input_post ('user_id');
     $description = trim ($this->input_post ('description'));
 
-    $position    = $this->input_post ('position');
-    $accuracy    = $this->input_post ('accuracy');
-    $address     = $this->input_post ('address');
-
-    // $latitude    = (($latitude = trim ($this->input_post ('latitude'))) ? $latitude : '');
-    // $longitude   = (($longitude = trim ($this->input_post ('longitude'))) ? $longitude : '');
-    // $altitude    = (($altitude = trim ($this->input_post ('altitude'))) ? $altitude : '');
+    $position    = ($position = $this->input_post ('position') ? $position : array ('latitude' => '', 'longitude' => '', 'altitude' => ''));
+    $accuracy    = ($accuracy = $this->input_post ('accuracy') ? $accuracy : array ('horizontal' => '', 'vertical' => ''));
+    $address     = ($address = $this->input_post ('address') ? $address : array ('city' => '', 'country' => '', 'address' => ''));
 
     $name        = $this->input_post ('name', true);
 

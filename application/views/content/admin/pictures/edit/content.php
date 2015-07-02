@@ -42,7 +42,7 @@
             <td>
               <select name='city'>
           <?php foreach ($cities as $city) { ?>
-                  <option value='<?php echo $f_city ? $f_city : $picture->city;?>'<?php echo ($f_city ? $f_city : $picture->city) == $city ? "selected" : "";?>><?php echo $city;?></option>
+                  <option value='<?php echo $city;?>'<?php echo ($f_city ? $f_city : $picture->city) == $city ? "selected" : "";?>><?php echo $city;?></option>
           <?php } ?>
               </select>
             </td>
