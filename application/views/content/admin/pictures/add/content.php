@@ -36,6 +36,28 @@
             </td>
           </tr>
           <tr>
+            <th>城市</th>
+            <td>
+              <select name='city'>
+          <?php foreach ($cities as $city) { ?>
+                  <option value='<?php echo $city;?>'<?php echo $city == $f_city ? "selected" : "";?>><?php echo $city;?></option>
+          <?php } ?>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>國家</th>
+            <td>
+              <input type='text' name='country' value='<?php echo $country;?>' placeholder='請輸入國家..' maxlength='200' pattern='.{1,200}' required title='輸入 1~200 個字元!' />
+            </td>
+          </tr>
+          <tr>
+            <th>地址</th>
+            <td>
+              <input type='text' name='address' value='<?php echo $address;?>' placeholder='請輸入地址..' maxlength='200' pattern='.{1,200}' required title='輸入 1~200 個字元!' />
+            </td>
+          </tr>
+          <tr>
             <td colspan='2'>
               <a href='<?php echo base_url ('admin', 'pictures');?>'>回列表</a>
               <button type='reset' class='button'>重填</button>

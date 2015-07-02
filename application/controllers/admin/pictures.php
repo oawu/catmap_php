@@ -44,12 +44,21 @@ class Pictures extends Admin_controller {
     $message     = identity ()->get_session ('_flash_message', true);
     $user_id     = identity ()->get_session ('user_id', true);
     $description = identity ()->get_session ('description', true);
+    $city        = identity ()->get_session ('city', true);
+    $country     = identity ()->get_session ('country', true);
+    $address     = identity ()->get_session ('address', true);
+
+    $cities = array ('八里區', '三芝區', '三重區', '三峽區', '土城區', '中和區', '五股區', '平溪區', '永和區', '石門區', '石碇區', '汐止區', '坪林區', '林口區', '板橋區', '金山區', '泰山區', '烏來區', '貢寮區', '淡水區', '深坑區', '新店區', '新莊區', '瑞芳區', '萬里區', '樹林區', '雙溪區', '蘆洲區', '鶯歌區', '中正區','大同區','中山區','松山區','大安區','萬華區','信義區','士林區','北投區','內湖區','南港區','文山區');
 
     $this->load_view (array (
         'picture'     => $picture,
         'message'     => $message,
         'user_id'     => $user_id,
-        'description' => $description
+        'description' => $description,
+        'f_city'      => $city,
+        'country'     => $country,
+        'address'     => $address,
+        'cities'      => $cities
       ));
   }
 
@@ -63,11 +72,17 @@ class Pictures extends Admin_controller {
     $user_id     = trim ($this->input_post ('user_id'));
     $description = trim ($this->input_post ('description'));
     $name        = $this->input_post ('name', true);
+    $city        = trim ($this->input_post ('city'));
+    $country     = trim ($this->input_post ('country'));
+    $address     = trim ($this->input_post ('address'));
 
-    if (!($user_id && $description && ((String)$picture->name || $name)))
+    if (!($user_id && $description && $city && $country && $address && ((String)$picture->name || $name)))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('user_id', $user_id, true)
                         ->set_session ('description', $description, true)
+                        ->set_session ('city', $city, true)
+                        ->set_session ('country', $country, true)
+                        ->set_session ('address', $address, true)
                         && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
 
     if ($name) {
@@ -75,6 +90,9 @@ class Pictures extends Admin_controller {
         return identity ()->set_session ('_flash_message', '修改失敗！', true)
                           ->set_session ('user_id', $user_id, true)
                           ->set_session ('description', $description, true)
+                          ->set_session ('city', $city, true)
+                          ->set_session ('country', $country, true)
+                          ->set_session ('address', $address, true)
                           && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
       
       $picture->update_gradient ();
@@ -86,11 +104,17 @@ class Pictures extends Admin_controller {
 
     $picture->user_id     = $user_id;
     $picture->description = description ($description);
+    $picture->city        = $city;
+    $picture->country     = $country;
+    $picture->address     = $address;
 
     if (!$picture->save ())
       return identity ()->set_session ('_flash_message', '修改失敗！', true)
                         ->set_session ('user_id', $user_id, true)
                         ->set_session ('description', $description, true)
+                        ->set_session ('city', $city, true)
+                        ->set_session ('country', $country, true)
+                        ->set_session ('address', $address, true)
                         && redirect (array ('admin', 'pictures', 'edit', $picture->id), 'refresh');
 
     return identity ()->set_session ('_flash_message', '修改成功！', true)
@@ -105,11 +129,20 @@ class Pictures extends Admin_controller {
     $message     = identity ()->get_session ('_flash_message', true);
     $user_id     = identity ()->get_session ('user_id', true);
     $description = identity ()->get_session ('description', true);
+    $city        = identity ()->get_session ('city', true);
+    $country     = identity ()->get_session ('country', true);
+    $address     = identity ()->get_session ('address', true);
+
+    $cities = array ('八里區', '三芝區', '三重區', '三峽區', '土城區', '中和區', '五股區', '平溪區', '永和區', '石門區', '石碇區', '汐止區', '坪林區', '林口區', '板橋區', '金山區', '泰山區', '烏來區', '貢寮區', '淡水區', '深坑區', '新店區', '新莊區', '瑞芳區', '萬里區', '樹林區', '雙溪區', '蘆洲區', '鶯歌區', '中正區','大同區','中山區','松山區','大安區','萬華區','信義區','士林區','北投區','內湖區','南港區','文山區');
 
     $this->load_view (array (
         'message'     => $message,
         'user_id'     => $user_id,
-        'description' => $description
+        'description' => $description,
+        'f_city'      => $city,
+        'country'     => $country,
+        'address'     => $address,
+        'cities'      => $cities
       ));
   }
 
@@ -120,11 +153,17 @@ class Pictures extends Admin_controller {
     $user_id     = trim ($this->input_post ('user_id'));
     $description = trim ($this->input_post ('description'));
     $name        = $this->input_post ('name', true);
+    $city        = trim ($this->input_post ('city'));
+    $country     = trim ($this->input_post ('country'));
+    $address     = trim ($this->input_post ('address'));
 
-    if (!($user_id && $description && $name))
+    if (!($user_id && $description && $name && $city && $country && $address))
       return identity ()->set_session ('_flash_message', '填寫資訊有少！', true)
                         ->set_session ('user_id', $user_id, true)
                         ->set_session ('description', $description, true)
+                        ->set_session ('city', $city, true)
+                        ->set_session ('country', $country, true)
+                        ->set_session ('address', $address, true)
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $params = array (
@@ -132,24 +171,39 @@ class Pictures extends Admin_controller {
         'description' => description ($description),
         'name'        => '',
         'gradient'    => '1',
+
+        'color_red'   => '',
+        'color_green' => '',
+        'color_blue'  => '',
+
         'latitude'    => '',
         'longitude'   => '',
         'altitude'    => '',
-        'color_red'   => '',
-        'color_green' => '',
-        'color_blue'  => ''
+        
+        'horizontal'  => '',
+        'vertical'    => '',
+
+        'city'        => $city,
+        'country'     => $country,
+        'address'     => $address
       );
 
     if (!verifyCreateOrm ($picture = Picture::create ($params)))
       return identity ()->set_session ('_flash_message', '新增失敗！', true)
                         ->set_session ('user_id', $user_id, true)
                         ->set_session ('description', $description, true)
+                        ->set_session ('city', $city, true)
+                        ->set_session ('country', $country, true)
+                        ->set_session ('address', $address, true)
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     if (!$picture->name->put ($name) && ($picture->delete () || true))
       return identity ()->set_session ('_flash_message', '新增失敗！', true)
                         ->set_session ('user_id', $user_id, true)
                         ->set_session ('description', $description, true)
+                        ->set_session ('city', $city, true)
+                        ->set_session ('country', $country, true)
+                        ->set_session ('address', $address, true)
                         && redirect (array ('admin', 'pictures', 'add'), 'refresh');
 
     $picture->update_gradient ();

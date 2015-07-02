@@ -14,12 +14,22 @@ class Migration_Add_pictures extends CI_Migration {
         `description` text COMMENT '描述',
         `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '名稱',
         `gradient` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '斜率，height/width',
-        `latitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '緯度',
-        `longitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '經度',
-        `altitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '海拔',
+        
         `color_red` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT 'RGB 紅',
         `color_green` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT 'RGB 綠',
         `color_blue` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT 'RGB 藍',
+        
+        `latitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '緯度',
+        `longitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '經度',
+        `altitude` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '海拔',
+
+        `horizontal` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '平面準確度(單位 m)',
+        `vertical` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT '高度準確度(單位 m)',
+
+        `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '程式',
+        `country` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '國家',
+        `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '地址',
+
         `updated_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '註冊時間',
         `created_at` datetime NOT NULL DEFAULT '" . date ('Y-m-d H:i:s') . "' COMMENT '更新時間',
         PRIMARY KEY (`id`),

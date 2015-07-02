@@ -24,6 +24,24 @@
         </td>
       </tr>
       <tr>
+        <th>城市</th>
+        <td>
+          <?php echo $picture->city;?>
+        </td>
+      </tr>
+      <tr>
+        <th>國家</th>
+        <td>
+          <?php echo $picture->country;?>
+        </td>
+      </tr>
+      <tr>
+        <th>地址</th>
+        <td>
+          <?php echo $picture->address;?>
+        </td>
+      </tr>
+      <tr>
         <th>照片</th>
         <td>
           <?php echo img ($picture->name->url ('800w'));?>

@@ -11,6 +11,13 @@ class Demo extends Site_controller {
     parent::__construct ();
   }
   
+  public function test () {
+    $cities = array ('八里區', '三芝區', '三重區', '三峽區', '土城區', '中和區', '五股區', '平溪區', '永和區', '石門區', '石碇區', '汐止區', '坪林區', '林口區', '板橋區', '金山區', '泰山區', '烏來區', '貢寮區', '淡水區', '深坑區', '新店區', '新莊區', '瑞芳區', '萬里區', '樹林區', '雙溪區', '蘆洲區', '鶯歌區', '中正區','大同區','中山區','松山區','大安區','萬華區','信義區','士林區','北投區','內湖區','南港區','文山區');
+    // echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" /><pre>';
+    var_dump ($cities[array_rand ($cities)]);
+    exit ();
+
+  }
   public function create () {
     $this->load->library ('CreateDemo');
 
@@ -42,6 +49,8 @@ class Demo extends Site_controller {
 
     $lat = 25.03684951358938;
     $lng = 121.54878616333008;
+    $cities = array ('八里區', '三芝區', '三重區', '三峽區', '土城區', '中和區', '五股區', '平溪區', '永和區', '石門區', '石碇區', '汐止區', '坪林區', '林口區', '板橋區', '金山區', '泰山區', '烏來區', '貢寮區', '淡水區', '深坑區', '新店區', '新莊區', '瑞芳區', '萬里區', '樹林區', '雙溪區', '蘆洲區', '鶯歌區', '中正區','大同區','中山區','松山區','大安區','萬華區','信義區','士林區','北投區','內湖區','南港區','文山區');
+
     foreach ($pics as $pic) {
       $user = User::find ('one', array ('select' => 'id', 'order' => 'RAND()', 'conditions' => array ()));
       $params = array (
@@ -49,12 +58,21 @@ class Demo extends Site_controller {
           'description' => CreateDemo::text (10, 50),
           'name'        => $pic['url'],
           'gradient'    => '1',
-          'latitude'    => $lat + (rand (-99999999, 99999999) * 0.000000001),
-          'longitude'   => $lng + (rand (-99999999, 99999999) * 0.000000001),
-          'altitude'    => '',
+          
           'color_red'   => '',
           'color_green' => '',
-          'color_blue'  => ''
+          'color_blue'  => '',
+          
+          'latitude'    => $lat + (rand (-99999999, 99999999) * 0.000000001),
+          'longitude'   => $lng + (rand (-99999999, 99999999) * 0.000000001),
+          'altitude'    => rand (1, 60),
+
+          'horizontal'  => rand (1, 60),
+          'vertical'    => rand (1, 60),
+
+          'city'        => $cities[array_rand ($cities)],
+          'country'     => '台灣',
+          'address'     => CreateDemo::text (10, 50),
         );
       if (verifyCreateOrm ($picture = Picture::create ($params))) {
         if ($picture->name->put_url ($pic['url'])) {

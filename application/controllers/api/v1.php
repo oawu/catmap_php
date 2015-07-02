@@ -164,12 +164,18 @@ class V1 extends Api_controller {
 
     $user_id     = $this->input_post ('user_id');
     $description = trim ($this->input_post ('description'));
-    $latitude    = (($latitude = trim ($this->input_post ('latitude'))) ? $latitude : '');
-    $longitude   = (($longitude = trim ($this->input_post ('longitude'))) ? $longitude : '');
-    $altitude    = (($altitude = trim ($this->input_post ('altitude'))) ? $altitude : '');
+
+    $position    = $this->input_post ('position');
+    $accuracy    = $this->input_post ('accuracy');
+    $address     = $this->input_post ('address');
+
+    // $latitude    = (($latitude = trim ($this->input_post ('latitude'))) ? $latitude : '');
+    // $longitude   = (($longitude = trim ($this->input_post ('longitude'))) ? $longitude : '');
+    // $altitude    = (($altitude = trim ($this->input_post ('altitude'))) ? $altitude : '');
+
     $name        = $this->input_post ('name', true);
 
-    if (!($description && $name))
+    if (!($description && $name && $position && $accuracy && $address))
       return $this->_error ('填寫資訊有少！');
 
     if (!($user_id && ($user = User::find_by_id ($user_id, array ('select' => 'id')))))
@@ -180,12 +186,21 @@ class V1 extends Api_controller {
         'description' => description ($description),
         'name'        => '',
         'gradient'    => 1,
-        'latitude'    => $latitude,
-        'longitude'   => $longitude,
-        'altitude'    => $altitude,
+        
         'color_red'   => '',
         'color_green' => '',
-        'color_blue'  => ''
+        'color_blue'  => '',
+
+        'latitude'    => isset ($position['latitude']) ? $position['latitude'] : '',
+        'longitude'   => isset ($position['longitude']) ? $position['longitude'] : '',
+        'altitude'    => isset ($position['altitude']) ? $position['altitude'] : '',
+
+        'horizontal'  => isset ($accuracy['horizontal']) ? $accuracy['horizontal'] : '',
+        'vertical'    => isset ($accuracy['vertical']) ? $accuracy['vertical'] : '',
+
+        'city'        => isset ($address['city']) ? $address['city'] : '',
+        'country'     => isset ($address['country']) ? $address['country'] : '',
+        'address'     => isset ($address['address']) ? $address['address'] : ''
       ))))
       return $this->_error ('新增失敗！');
 
