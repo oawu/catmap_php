@@ -58,15 +58,19 @@ class V1 extends Api_controller {
           'address' => $picture->address
         );
   }
-  private function _picture_format ($picture, $size = '800w') {
+  private function _picture_format ($picture) {
     $return = array (
         'id' => $picture->id,
         'description' => $picture->description,
-        'url' => $picture->name->url ($size),
+        'name' => array (
+            'ori' => $picture->name->url (),
+            '100w' => $picture->name->url ('100w'),
+            '800w' => $picture->name->url ('800w')
+          ),
         'gradient' => $picture->gradient,
         'like_count' => count ($picture->likes),
         'comment_count' => count ($picture->comments),
-        'user' => $this->_user_format ($picture->user, '140x140c'),
+        'user' => $this->_user_format ($picture->user),
         'created_at' => $picture->created_at->format ('Y年m月d日 H:i')
       );
 
@@ -84,12 +88,15 @@ class V1 extends Api_controller {
 
     return $return;
   }
-  private function _user_format ($user, $size = '') {
+  private function _user_format ($user) {
     $return = array (
         'id' => $user->id,
         'name' => $user->name,
         'account' => $user->account,
-        'avatar' => $user->avatar->url ($size),
+        'avatar' => array (
+            'ori' => $user->avatar->url (),
+            '140x140c' => $user->avatar->url ('140x140c')
+          ),
       );
 
     if ($color = $this->_color_format ($user))
@@ -123,18 +130,10 @@ class V1 extends Api_controller {
       'longitude' => $center['longitude'] - ($span['longitudeDelta'] / 2)
       );
 
-    $pictures = array_map (function ($picture) {
-      return array (
-          'id' => $picture->id,
-          'lat' => $picture->latitude,
-          'lng' => $picture->longitude,
-          'des' => $picture->description,
-          'url' => array (
-              'ori' => $picture->name->url (),
-              'w100' => $picture->name->url ('100w')
-            )
-        );
-    }, Picture::find ('all', array ('conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude']))));
+    $that = $this;
+    $pictures = array_map (function ($picture) use ($that) {
+        return $that->_picture_format ($picture);
+    }, Picture::find ('all', array ('include' => array ('user', 'likes', 'comments'), 'conditions' => array ('latitude < ? AND latitude > ? AND longitude < ? AND longitude > ?', $north_east['latitude'], $south_west['latitude'], $north_east['longitude'], $south_west['longitude']))));
 
     return $this->output_json (array ('status' => true, 'pictures' => $pictures));
   }
