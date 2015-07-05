@@ -246,12 +246,17 @@ class V1 extends Api_controller {
       return $this->_error ($message);
 
     $id = trim ($this->input_post ('id'));
-    $password = trim ($this->input_post ('password'));
+    $old_password = trim ($this->input_post ('old_password'));
+    $new_password = trim ($this->input_post ('new_password'));
 
-    if (!($id && $password && ($user = User::find_by_id ($id))))
+    if (!($id && $old_password && $new_password && ($user = User::find_by_id ($id))))
       return $this->_error ('填寫資訊有少！');
 
-    $user->password = password ($password);
+    if ($user->password != password ($old_password))
+      return $this->_error ('舊密碼填寫錯誤！');
+
+    $user->password = password ($new_password);
+
     if (!$user->save ())
       return $this->_error ('更新失敗！');
 
