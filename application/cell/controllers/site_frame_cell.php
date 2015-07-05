@@ -19,6 +19,7 @@ class Site_frame_cell extends Cell_Controller {
     $right_links = array (
         array ('name' => '登出', 'href' => base_url ('main', 'logout'), 'is_login' => true),
         array ('name' => '登入', 'href' => base_url ('main', 'login'), 'is_login' => false),
+        array ('name' => 'GitHub', 'href' => 'https://github.com/comdan66', 'is_login' => false, 'target' => true),
       );
 
     return $this->setUseCssList (true)
