@@ -11,7 +11,7 @@
   </div>
   <div class='user'>
     <div class='avatar'>
-      <img src='<?php echo $picture->user->avatar->url ('65x65t');?>' />
+      <img src='<?php echo $picture->user->avatar->url ('130x130t');?>' />
     </div>
     <div class='info'>
       <div class='name'><?php echo $picture->user->name;?></div>
