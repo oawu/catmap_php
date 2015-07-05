@@ -239,6 +239,67 @@ class V1 extends Api_controller {
     ));
   }
 
+  public function update_user_password () {
+    if ($message = $this->_method ('POST'))
+      return $this->_error ($message);
+
+    $id = trim ($this->input_post ('id'));
+    $password = trim ($this->input_post ('password'));
+
+    if (!($id && $password && ($user = User::find_by_id ($id))))
+      return $this->_error ('填寫資訊有少！');
+
+    $user->password = password ($password);
+    if (!$user->save ())
+      return $this->_error ('更新失敗！');
+
+    return $this->output_json (array (
+      'status' => true,
+      'user' => $this->_user_format ($user)
+    ));
+  }
+
+  public function update_user_name () {
+    if ($message = $this->_method ('POST'))
+      return $this->_error ($message);
+
+    $id = trim ($this->input_post ('id'));
+    $name = trim ($this->input_post ('name'));
+
+    if (!($id && $name && ($user = User::find_by_id ($id))))
+      return $this->_error ('填寫資訊有少！');
+
+    $user->name = $name;
+    if (!$user->save ())
+      return $this->_error ('更新失敗！');
+
+    return $this->output_json (array (
+      'status' => true,
+      'user' => $this->_user_format ($user)
+    ));
+  }
+
+  public function update_user_avatar () {
+    if ($message = $this->_method ('POST'))
+      return $this->_error ($message);
+
+    $id = trim ($this->input_post ('id'));
+    $avatar = $this->input_post ('avatar', true);
+
+    if (!($id && $avatar && ($user = User::find_by_id ($id))))
+      return $this->_error ('填寫資訊有少！');
+
+    if (!$user->avatar->put ($avatar))
+      return $this->_error ('更新失敗！');
+
+    $user->update_color ();
+
+    return $this->output_json (array (
+      'status' => true,
+      'user' => $this->_user_format ($user)
+    ));
+  }
+
   public function register () {
     if ($message = $this->_method ('POST'))
       return $this->_error ($message);
@@ -251,11 +312,11 @@ class V1 extends Api_controller {
     if (!($account && $password && $name && $avatar))
       return $this->_error ('填寫資訊有少！');
 
-    if (User::find_by_account ($account))
+    if (User::find_by_account (strtolower ($account)))
       return $this->_error ('帳號已經有人使用！');
 
     $params = array (
-        'account'  => $account,
+        'account'  => strtolower ($account),
         'password' => password ($password),
         'name'     => $name,
         'avatar'   => '',
@@ -287,7 +348,7 @@ class V1 extends Api_controller {
     $account  = trim ($this->input_post ('account'));
     $password = trim ($this->input_post ('password'));
 
-    if (!($user = User::find ('one', array ('conditions' => array ('account = ? AND password = ?', $account, password ($password))))))
+    if (!($user = User::find ('one', array ('conditions' => array ('account = ? AND password = ?', strtolower ($account), password ($password))))))
       return $this->_error ('找不到使用者！');
 
     return $this->output_json (array (

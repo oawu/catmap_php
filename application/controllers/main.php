@@ -69,7 +69,7 @@ class Main extends Site_controller {
     $account  = trim ($this->input_post ('account'));
     $password = trim ($this->input_post ('password'));
 
-    if (!($user = User::find_by_account_and_password ($account, password ($password))))
+    if (!($user = User::find_by_account_and_password (strtolower ($account), password ($password))))
       return identity ()->set_session ('_flash_message', '登入失敗，請再確認一次帳號與密碼！', true)
                         ->set_session ('account', $account, true)
                         && redirect (array ($this->get_class (), 'login'), 'refresh');

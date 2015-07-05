@@ -73,7 +73,7 @@ class Users extends Admin_controller {
             'id' => $user->id
           ));
 
-    $user->account  = $account;
+    $user->account  = strtolower ($account);
     $user->password = password ($password);
     $user->name     = $name;
 
@@ -119,7 +119,7 @@ class Users extends Admin_controller {
                         && redirect (array ('admin', 'users', 'add'), 'refresh');
 
     $params = array (
-        'account'  => $account,
+        'account'  => strtolower ($account),
         'password' => password ($password),
         'name'     => $name,
         'avatar'   => '',
