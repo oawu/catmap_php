@@ -95,7 +95,7 @@ class V1 extends Api_controller {
         'account' => $user->account,
         'avatar' => array (
             'ori' => $user->avatar->url (),
-            '140x140c' => $user->avatar->url ('140x140c')
+            '100x100c' => $user->avatar->url ('100x100c')
           ),
       );
 
