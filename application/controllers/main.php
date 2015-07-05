@@ -12,7 +12,8 @@ class Main extends Site_controller {
   }
 
   public function index () {
-    $this->add_hidden (array ('id' => 'get_pictures_url', 'value' => base_url ($this->get_class (), 'get_pictures')))
+    $this->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
+         ->add_hidden (array ('id' => 'get_pictures_url', 'value' => base_url ($this->get_class (), 'get_pictures')))
          ->add_js (base_url ('resource', 'javascript', 'imgLiquid_v0.9.944', 'imgLiquid-min.js'))
          ->add_js (base_url ('resource', 'javascript', 'masonry_v3.1.2', 'masonry.pkgd.min.js'))
          ->add_js (base_url ('resource', 'javascript', 'imagesloaded_v3.1.8', 'imagesloaded.pkgd.min.js'))
@@ -48,7 +49,8 @@ class Main extends Site_controller {
     $message = identity ()->get_session ('_flash_message', true);
     $account = identity ()->get_session ('account', true);
 
-    $this->load_view (array (
+    $this->add_meta (array ('property' => 'og:url', 'content' => current_url ()))
+         ->load_view (array (
         'message' => $message,
         'account' => $account
       ));
