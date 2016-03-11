@@ -15,8 +15,6 @@ application/config/database.php
 
 temp/*
 
-upload/*
-
 assets/*
 
 command/compass/.sass-cache/*
