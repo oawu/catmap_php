@@ -6,13 +6,13 @@
  */
 
 $orm_uploader['uploader']['debug'] = false;
-$orm_uploader['uploader']['driver'] = 'local'; // local、s3
+$orm_uploader['uploader']['driver'] = 's3'; // local、s3
 
 $orm_uploader['uploader']['local']['base_directory'] = array ('upload');
 
-$orm_uploader['uploader']['s3']['base_directory'] = array ('upload');
-$orm_uploader['uploader']['s3']['bucket'] = 'ioa';
-$orm_uploader['uploader']['s3']['url'] = 'http://s3-ap-northeast-1.amazonaws.com/ioa/';
+$orm_uploader['uploader']['s3']['base_directory'] = array ('catmap', 'upload');
+$orm_uploader['uploader']['s3']['bucket'] = 'pic.ioa.tw';
+$orm_uploader['uploader']['s3']['url'] = 'https://pic.ioa.tw/';
 
 $orm_uploader['uploader']['instance']['class_suffix'] = 'Uploader';
 $orm_uploader['uploader']['instance']['directory'] = array ('application', 'third_party', 'orm_uploaders');
